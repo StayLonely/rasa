@@ -1,6 +1,6 @@
+from enum import Enum
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
-from enum import Enum
 
 
 class AgentType(str, Enum):
@@ -13,6 +13,7 @@ class AgentStatus(str, Enum):
     TRAINING = "training"
     READY = "ready"
     ERROR = "error"
+    REQUIRES_TRAINING = "requires_training"  # 👈 ДОБАВЛЯЕМ НОВЫЙ СТАТУС
 
 
 class AgentBase(BaseModel):
@@ -28,9 +29,13 @@ class AgentCreate(AgentBase):
 class Agent(AgentBase):
     id: int
     status: AgentStatus = AgentStatus.CREATED
+    port: int
     config_path: Optional[str] = None
     domain_path: Optional[str] = None
+    nlu_data_path: Optional[str] = None
+    stories_path: Optional[str] = None
     model_path: Optional[str] = None
+    requires_training: bool = False  # 👈 ДОБАВЛЯЕМ ФЛАГ
 
     class Config:
         from_attributes = True
@@ -48,5 +53,3 @@ class MessageRequest(BaseModel):
 class MessageResponse(BaseModel):
     response: List[str]
     agent_id: int
-    intent: Optional[str] = None
-    entities: Optional[List[Dict]] = None
