@@ -1,18 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
 
-from .routers import agents
+from backend.routers.agents import router as agents_router
+from backend.routers.nlu import router as nlu_router  # 👈 ДОБАВЛЯЕМ ИМПОРТ
 
 app = FastAPI(
     title="Lab Complex API",
-    description="API для управления Rasa агентами",
+    description="API для управления Rasa агентами и NLU редактором",
     version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc"
 )
 
-# CORS настройки
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,8 +20,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Подключаем роутеры
-app.include_router(agents.router)
+app.include_router(agents_router)
+app.include_router(nlu_router)  # 👈 ПОДКЛЮЧАЕМ NLU РОУТЕР
 
 @app.get("/")
 async def root():
@@ -30,14 +29,7 @@ async def root():
         "message": "Lab Complex API запущен!",
         "endpoints": {
             "docs": "/api/docs",
-            "agents": "/api/agents"
+            "agents": "/api/agents",
+            "nlu": "/api/agents/{id}/nlu"
         }
     }
-
-@app.get("/api/health")
-async def health_check():
-    return {"status": "healthy", "service": "lab-complex-api"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,0 +1,11 @@
+nlu:
+- examples: '- привет
+
+    - здравствуйте
+
+    - добрый день'
+  intent: greet
+- examples: '- пока
+
+    - до свидания'
+  intent: goodbye
