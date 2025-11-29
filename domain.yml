@@ -1,0 +1,24 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+responses:
+  utter_greet:
+  - text: "Привет! Как дела?"
+  utter_cheer_up:
+  - text: "Не переживай! Все наладится."
+  utter_did_that_help:
+  - text: "Это помогло?"
+  utter_goodbye:
+  - text: "Пока!"
+  utter_happy:
+  - text: "Отлично! Рад это слышать!"
+  utter_iamabot:
+  - text: "Я бот, созданный на Rasa!"

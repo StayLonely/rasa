@@ -1,0 +1,47 @@
+{
+  "text": {
+    "хочу": 17,
+    "записаться": 3,
+    "на": 11,
+    "услугу": 16,
+    "мне": 10,
+    "нужна": 12,
+    "услуга": 15,
+    "запись": 4,
+    "забронировать": 2,
+    "меня": 9,
+    "зовут": 5,
+    "алексей": 0,
+    "мария": 8,
+    "имя": 6,
+    "джон": 1,
+    "стрижку": 13,
+    "маникюр": 7,
+    "уборка": 14
+  },
+  "intent": {
+    "request_booking": 3,
+    "provide_name": 1,
+    "provide_service": 2,
+    "greet": 0
+  },
+  "response": null,
+  "action_name": {
+    "action_listen": 6,
+    "action_restart": 7,
+    "action_session_start": 9,
+    "action_default_fallback": 4,
+    "action_deactivate_loop": 1,
+    "action_revert_fallback_events": 8,
+    "action_default_ask_affirmation": 2,
+    "action_default_ask_rephrase": 3,
+    "action_two_stage_fallback": 10,
+    "action_unlikely_intent": 11,
+    "action_back": 0,
+    "action_extract_slots": 5,
+    "booking_form": 12,
+    "utter_greet": 13
+  },
+  "action_text": null,
+  "intent_response_key": null
+}

@@ -1,0 +1,33 @@
+version: "3.1"
+
+nlu:
+- intent: request_booking
+  examples: |
+    - хочу записаться на услугу
+    - мне нужна услуга
+    - запись
+    - забронировать
+    - хочу записаться
+    - можно записаться?
+
+- intent: provide_name
+  examples: |
+    - меня зовут [Никита](name)
+    - [Анна](name)
+    - имя [Сергей](name)
+    - [Мария](name)
+    - меня зовут [Алексей](name)
+    - зовут [Ольга](name)
+    - я [Дмитрий](name)
+    - [Иван](name)
+    - можно записаться от имени [Екатерины](name)
+
+- intent: provide_service
+  examples: |
+    - на [стрижку](service)
+    - [маникюр](service)
+    - услуга [уборка](service)
+    - [педикюр](service)
+    - [покраска волос](service)
+    - [массаж](service)
+    - [консультация](service)

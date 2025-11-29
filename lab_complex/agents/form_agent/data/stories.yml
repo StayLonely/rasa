@@ -1,0 +1,39 @@
+version: "3.1"
+
+stories:
+- story: Начало диалога
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- story: Запись на услугу - стандартный сценарий
+  steps:
+  - intent: request_booking
+  - action: utter_ask_service
+  - intent: provide_service
+    entities:
+    - service
+  - action: utter_ask_name
+  - intent: provide_name
+    entities:
+    - name
+  - action: action_submit_booking
+
+- story: Пользователь сразу называет услугу
+  steps:
+  - intent: request_booking
+    entities:
+    - service
+  - action: utter_ask_name
+  - intent: provide_name
+    entities:
+    - name
+  - action: action_submit_booking
+
+- story: Пользователь называет все сразу
+  steps:
+  - intent: request_booking
+    entities:
+    - name
+    - service
+  - action: action_submit_booking

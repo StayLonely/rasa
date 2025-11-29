@@ -1,0 +1,49 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - request_booking
+  - provide_name
+  - provide_service
+
+entities:
+  - name
+  - service
+
+slots:
+  name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: name
+
+  service:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: service
+
+responses:
+  utter_greet:
+  - text: "Здравствуйте! Я помогу вам записаться на услугу."
+  utter_goodbye:
+  - text: "Запись завершена. До свидания!"
+  utter_ask_name:
+  - text: "Как вас зовут?"
+  utter_ask_service:
+  - text: "На какую услугу вы хотите записаться?"
+  utter_confirm_booking:
+  - text: "Я записал вас на услугу {service}. Ваше имя: {name}. Все верно?"
+
+actions:
+  - action_submit_booking
+
+# УДАЛИ этот раздел - он нам не нужен в простом сценарии
+# forms:
+#   booking_form:
+#     required_slots:
+#       - name
+#       - service

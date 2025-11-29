@@ -1,0 +1,17 @@
+version: "3.1"
+
+rules:
+- rule: Ответ о доставке
+  steps:
+  - intent: faq_delivery
+  - action: utter_faq_delivery
+
+- rule: Ответ об оплате
+  steps:
+  - intent: faq_payment
+  - action: utter_faq_payment
+
+- rule: Ответ о контактах
+  steps:
+  - intent: faq_contacts
+  - action: utter_faq_contacts

@@ -1,0 +1,80 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - привет
+    - здравствуйте
+    - добрый день
+    - хай
+    - доброе утро
+    - приветик
+    - здравствуй
+    - салют
+    - hey
+    - hello
+    - hi
+
+- intent: goodbye
+  examples: |
+    - пока
+    - до свидания
+    - прощай
+    - всего хорошего
+    - до встречи
+    - bye
+    - goodbye
+    - see you
+
+- intent: affirm
+  examples: |
+    - да
+    - конечно
+    - согласен
+    - точно
+    - верно
+    - yes
+    - y
+    - indeed
+
+- intent: deny
+  examples: |
+    - нет
+    - не надо
+    - не нужно
+    - отказываюсь
+    - no
+    - n
+    - never
+
+- intent: mood_great
+  examples: |
+    - отлично
+    - прекрасно
+    - замечательно
+    - хорошо
+    - великолепно
+    - супер
+    - perfect
+    - great
+    - amazing
+
+- intent: mood_unhappy
+  examples: |
+    - плохо
+    - ужасно
+    - грустно
+    - не очень
+    - паршиво
+    - sad
+    - unhappy
+    - not good
+
+- intent: bot_challenge
+  examples: |
+    - ты бот?
+    - ты человек?
+    - это искусственный интеллект?
+    - ты программа?
+    - are you a bot?
+    - are you a human?

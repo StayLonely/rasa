@@ -1,0 +1,16 @@
+{
+  "lookup": {
+    "rules": {},
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}}, {\"active_loop\": {\"name\": \"booking_form\"}, \"prev_action\": {\"action_name\": \"booking_form\"}, \"user\": {\"intent\": \"request_booking\"}}]": "do_not_predict_loop_action"
+    },
+    "rules_not_in_stories": [
+      "predicting default action with intent restart",
+      "predicting default action with intent back",
+      "predicting default action with intent session_start",
+      "handling active loops and forms - booking_form"
+    ]
+  }
+}
