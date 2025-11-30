@@ -1,0 +1,18 @@
+intents:
+- greet
+- goodbye
+responses:
+  utter_faq_contacts:
+  - text: 'Наш телефон: +7 (495) 123-45-67.'
+  utter_faq_delivery:
+  - text: Доставка осуществляется в течение 2-3 дней.
+  utter_faq_payment:
+  - text: Мы принимаем карты Visa, MasterCard и МИР.
+  utter_goodbye:
+  - text: До свидания! Обращайтесь еще.
+  utter_greet:
+  - text: Здравствуйте! Чем могу помочь?
+session_config:
+  carry_over_slots_to_new_session: true
+  session_expiration_time: 60
+version: '3.1'

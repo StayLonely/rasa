@@ -1,0 +1,42 @@
+{
+  "text": {
+    "привет": 6,
+    "здравствуйте": 4,
+    "добрый": 3,
+    "день": 1,
+    "хай": 9,
+    "приветик": 7,
+    "пока": 5,
+    "до": 2,
+    "свидания": 8,
+    "всего": 0,
+    "хорошего": 10
+  },
+  "intent": {
+    "greet": 4,
+    "goodbye": 3,
+    "faq_contacts": 0,
+    "faq_delivery": 1,
+    "faq_payment": 2
+  },
+  "response": null,
+  "action_name": {
+    "action_listen": 6,
+    "action_restart": 7,
+    "action_session_start": 9,
+    "action_default_fallback": 4,
+    "action_deactivate_loop": 1,
+    "action_revert_fallback_events": 8,
+    "action_default_ask_affirmation": 2,
+    "action_default_ask_rephrase": 3,
+    "action_two_stage_fallback": 10,
+    "action_unlikely_intent": 11,
+    "action_back": 0,
+    "action_extract_slots": 5,
+    "utter_faq_contacts": 12,
+    "utter_faq_delivery": 13,
+    "utter_faq_payment": 14
+  },
+  "action_text": null,
+  "intent_response_key": null
+}

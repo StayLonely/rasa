@@ -2,11 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.routers.agents import router as agents_router
-from backend.routers.nlu import router as nlu_router  # 👈 ДОБАВЛЯЕМ ИМПОРТ
+from backend.routers.nlu import router as nlu_router
+from backend.routers.logs import router as logs_router  # 👈 ДОБАВЛЯЕМ ИМПОРТ
 
 app = FastAPI(
     title="Lab Complex API",
-    description="API для управления Rasa агентами и NLU редактором",
+    description="API для управления Rasa агентами, NLU редактором и системой трассировки",
     version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc"
@@ -21,7 +22,8 @@ app.add_middleware(
 )
 
 app.include_router(agents_router)
-app.include_router(nlu_router)  # 👈 ПОДКЛЮЧАЕМ NLU РОУТЕР
+app.include_router(nlu_router)
+app.include_router(logs_router)  # 👈 ПОДКЛЮЧАЕМ ЛОГИ РОУТЕР
 
 @app.get("/")
 async def root():
@@ -30,6 +32,7 @@ async def root():
         "endpoints": {
             "docs": "/api/docs",
             "agents": "/api/agents",
-            "nlu": "/api/agents/{id}/nlu"
+            "nlu": "/api/agents/{id}/nlu",
+            "logs": "/api/agents/{id}/logs"
         }
     }
