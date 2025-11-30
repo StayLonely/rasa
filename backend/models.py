@@ -1,6 +1,7 @@
 from enum import Enum
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
+from datetime import datetime
 
 
 class AgentType(str, Enum):
@@ -13,7 +14,7 @@ class AgentStatus(str, Enum):
     TRAINING = "training"
     READY = "ready"
     ERROR = "error"
-    REQUIRES_TRAINING = "requires_training"  # 👈 ДОБАВЛЯЕМ НОВЫЙ СТАТУС
+    REQUIRES_TRAINING = "requires_training"
 
 
 class AgentBase(BaseModel):
@@ -35,7 +36,9 @@ class Agent(AgentBase):
     nlu_data_path: Optional[str] = None
     stories_path: Optional[str] = None
     model_path: Optional[str] = None
-    requires_training: bool = False  # 👈 ДОБАВЛЯЕМ ФЛАГ
+    created_at: str  # 👈 ДОБАВЛЯЕМ ОБЯЗАТЕЛЬНОЕ ПОЛЕ
+    updated_at: str  # 👈 ДОБАВЛЯЕМ ОБЯЗАТЕЛЬНОЕ ПОЛЕ
+    requires_training: bool = False
 
     class Config:
         from_attributes = True
@@ -53,3 +56,69 @@ class MessageRequest(BaseModel):
 class MessageResponse(BaseModel):
     response: List[str]
     agent_id: int
+
+
+class TrainingRequest(BaseModel):
+    agent_id: int
+
+
+class MessageRequest(BaseModel):
+    message: str
+    sender: str = "user"
+
+
+class IntentInfo(BaseModel):
+    name: str
+    confidence: float
+
+
+class EntityInfo(BaseModel):
+    entity: str
+    value: str
+    confidence: Optional[float] = None
+    start: Optional[int] = None
+    end: Optional[int] = None
+
+
+class TraceMetadata(BaseModel):
+    intent: Optional[IntentInfo] = None
+    entities: List[EntityInfo] = []
+    timestamp: str
+    confidence: Optional[float] = None
+    text: str
+
+
+class MessageResponse(BaseModel):
+    response: List[str]
+    agent_id: int
+    trace_metadata: Optional[TraceMetadata] = None  # 👈 ДОБАВЛЯЕМ МЕТАДАННЫЕ ТРАССИРОВКИ
+    success: bool = True
+    error: Optional[str] = None
+
+
+# Модель для логов диалогов
+class DialogLog(BaseModel):
+    id: Optional[int] = None
+    agent_id: int
+    sender: str
+    user_message: str
+    bot_response: List[str]
+    intent: Optional[str] = None
+    intent_confidence: Optional[float] = None
+    entities: List[Dict[str, Any]] = []
+    timestamp: str
+    processing_time_ms: Optional[float] = None
+
+    class Config:
+        from_attributes = True
+
+
+class DialogLogCreate(BaseModel):
+    agent_id: int
+    sender: str
+    user_message: str
+    bot_response: List[str]
+    intent: Optional[str] = None
+    intent_confidence: Optional[float] = None
+    entities: List[Dict[str, Any]] = []
+    processing_time_ms: Optional[float] = None

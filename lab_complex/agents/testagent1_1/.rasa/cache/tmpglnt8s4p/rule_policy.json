@@ -1,0 +1,26 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_payment\"}}]": "utter_faq_payment",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_payment\"}}, {\"prev_action\": {\"action_name\": \"utter_faq_payment\"}, \"user\": {\"intent\": \"faq_payment\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_delivery\"}}]": "utter_faq_delivery",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_delivery\"}}, {\"prev_action\": {\"action_name\": \"utter_faq_delivery\"}, \"user\": {\"intent\": \"faq_delivery\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_contacts\"}}]": "utter_faq_contacts",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_contacts\"}}, {\"prev_action\": {\"action_name\": \"utter_faq_contacts\"}, \"user\": {\"intent\": \"faq_contacts\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_payment\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_delivery\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_payment\"}}, {\"prev_action\": {\"action_name\": \"utter_faq_payment\"}, \"user\": {\"intent\": \"faq_payment\"}}]",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_contacts\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_contacts\"}}, {\"prev_action\": {\"action_name\": \"utter_faq_contacts\"}, \"user\": {\"intent\": \"faq_contacts\"}}]",
+      "predicting default action with intent session_start",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"faq_delivery\"}}, {\"prev_action\": {\"action_name\": \"utter_faq_delivery\"}, \"user\": {\"intent\": \"faq_delivery\"}}]",
+      "predicting default action with intent restart"
+    ]
+  }
+}

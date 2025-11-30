@@ -1,0 +1,18 @@
+{
+  "next_id": 2,
+  "logs": [
+    {
+      "id": 1,
+      "agent_id": 1,
+      "sender": "user",
+      "user_message": "привет",
+      "bot_response": [],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2025-11-30T13:56:16.988929",
+      "processing_time_ms": 27.589082717895508
+    }
+  ],
+  "saved_at": "2025-11-30T13:56:16.989008"
+}

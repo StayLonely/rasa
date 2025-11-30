@@ -1,0 +1,55 @@
+{
+  "next_id": 4,
+  "agents": [
+    {
+      "name": "agent2",
+      "description": "string",
+      "agent_type": "faq",
+      "id": 1,
+      "status": "ready",
+      "port": 5005,
+      "config_path": "lab_complex/agents/agent2_1/config.yml",
+      "domain_path": "lab_complex/agents/agent2_1/domain.yml",
+      "nlu_data_path": "lab_complex/agents/agent2_1/data/nlu.yml",
+      "stories_path": "lab_complex/agents/agent2_1/data/stories.yml",
+      "model_path": "lab_complex/agents/agent2_1/models",
+      "created_at": "2025-11-30T13:32:46.580147",
+      "updated_at": "2025-11-30T13:45:55.481915",
+      "requires_training": false
+    },
+    {
+      "name": "newAgent",
+      "description": "string",
+      "agent_type": "faq",
+      "id": 2,
+      "status": "ready",
+      "port": 5006,
+      "config_path": "lab_complex/agents/newagent_2/config.yml",
+      "domain_path": "lab_complex/agents/newagent_2/domain.yml",
+      "nlu_data_path": "lab_complex/agents/newagent_2/data/nlu.yml",
+      "stories_path": "lab_complex/agents/newagent_2/data/stories.yml",
+      "model_path": "lab_complex/agents/newagent_2/models",
+      "created_at": "2025-11-30T13:40:45.365792",
+      "updated_at": "2025-11-30T13:40:45.365806",
+      "requires_training": false
+    },
+    {
+      "name": "abobatest",
+      "description": "string",
+      "agent_type": "faq",
+      "id": 3,
+      "status": "ready",
+      "port": 5007,
+      "config_path": "lab_complex/agents/abobatest_3/config.yml",
+      "domain_path": "lab_complex/agents/abobatest_3/domain.yml",
+      "nlu_data_path": "lab_complex/agents/abobatest_3/data/nlu.yml",
+      "stories_path": "lab_complex/agents/abobatest_3/data/stories.yml",
+      "model_path": "lab_complex/agents/abobatest_3/models",
+      "created_at": "2025-11-30T13:55:33.482321",
+      "updated_at": "2025-11-30T13:55:33.482428",
+      "requires_training": false
+    }
+  ],
+  "saved_at": "2025-11-30T13:55:33.482577",
+  "total_agents": 3
+}

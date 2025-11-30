@@ -1,0 +1,198 @@
+[
+  {
+    "id": 1,
+    "agent_id": 1,
+    "sender": "testAgent1",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:36:28.072937",
+    "processing_time_ms": 194.7319507598877
+  },
+  {
+    "id": 2,
+    "agent_id": 1,
+    "sender": "testAgent1",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:40:41.594229",
+    "processing_time_ms": 65.39082527160645
+  },
+  {
+    "id": 3,
+    "agent_id": 1,
+    "sender": "testAgent1",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:41:58.227828",
+    "processing_time_ms": 47.02615737915039
+  },
+  {
+    "id": 4,
+    "agent_id": 1,
+    "sender": "testAgent1",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:43:07.868973",
+    "processing_time_ms": 30.112028121948242
+  },
+  {
+    "id": 5,
+    "agent_id": 1,
+    "sender": "testAgent1",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:53:40.404301",
+    "processing_time_ms": 122.51114845275879
+  },
+  {
+    "id": 6,
+    "agent_id": 1,
+    "sender": "testAgent1",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:53:43.859940",
+    "processing_time_ms": 43.02811622619629
+  },
+  {
+    "id": 7,
+    "agent_id": 1,
+    "sender": "user",
+    "user_message": "привет",
+    "bot_response": [],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:53:57.453847",
+    "processing_time_ms": 40.35806655883789
+  },
+  {
+    "id": 8,
+    "agent_id": 1,
+    "sender": "user",
+    "user_message": "привет",
+    "bot_response": [
+      "Здравствуйте! Чем могу помочь?"
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T12:59:56.300846",
+    "processing_time_ms": 73.49801063537598
+  },
+  {
+    "id": 9,
+    "agent_id": 1,
+    "sender": "test",
+    "user_message": "привет",
+    "bot_response": [
+      "Здравствуйте! Чем могу помочь?"
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:00:06.479236",
+    "processing_time_ms": 48.76112937927246
+  },
+  {
+    "id": 10,
+    "agent_id": 1,
+    "sender": "test_user_day2",
+    "user_message": "как дела?",
+    "bot_response": [
+      "До свидания! Обращайтесь еще."
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:00:45.321282",
+    "processing_time_ms": 79.193115234375
+  },
+  {
+    "id": 11,
+    "agent_id": 1,
+    "sender": "test_user_day2",
+    "user_message": "как дела?",
+    "bot_response": [
+      "До свидания! Обращайтесь еще."
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:00:51.838780",
+    "processing_time_ms": 53.83014678955078
+  },
+  {
+    "id": 12,
+    "agent_id": 1,
+    "sender": "test_user_day2",
+    "user_message": "пока",
+    "bot_response": [
+      "До свидания! Обращайтесь еще."
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:00:57.578454",
+    "processing_time_ms": 102.72884368896484
+  },
+  {
+    "id": 13,
+    "agent_id": 1,
+    "sender": "test_user_day2",
+    "user_message": "что ты умеешь?",
+    "bot_response": [
+      "Здравствуйте! Чем могу помочь?"
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:01:23.676679",
+    "processing_time_ms": 71.13909721374512
+  },
+  {
+    "id": 14,
+    "agent_id": 1,
+    "sender": "test_user_day2",
+    "user_message": "что ты умеешь?",
+    "bot_response": [
+      "Здравствуйте! Чем могу помочь?"
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:01:26.779103",
+    "processing_time_ms": 76.12490653991699
+  },
+  {
+    "id": 1,
+    "agent_id": 1,
+    "sender": "test",
+    "user_message": "привет",
+    "bot_response": [
+      "Здравствуйте! Чем могу помочь?"
+    ],
+    "intent": null,
+    "intent_confidence": null,
+    "entities": [],
+    "timestamp": "2025-11-30T13:11:10.861880",
+    "processing_time_ms": 142.38286018371582
+  }
+]
