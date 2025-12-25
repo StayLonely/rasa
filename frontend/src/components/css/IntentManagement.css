@@ -1,0 +1,158 @@
+.intent-management {
+  padding: 1rem;
+}
+
+.intent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.intent-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.intent-form {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.intent-form h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.examples-input {
+  margin-top: 0.5rem;
+}
+
+.example-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.example-input-group input {
+  flex: 1;
+}
+
+.examples-list {
+  margin-top: 1rem;
+}
+
+.example-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.example-item span {
+  flex: 1;
+  word-break: break-word;
+}
+
+.example-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+.intents-list {
+  margin-top: 2rem;
+}
+
+.intents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.intent-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.intent-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.intent-card-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.intent-description {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.intent-examples h5 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.intent-examples ul {
+  margin: 0 0 1rem 1rem;
+  padding: 0;
+}
+
+.intent-examples li {
+  margin-bottom: 0.25rem;
+  color: #666;
+}
+
+.intent-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-small {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  background: white;
+  border-radius: 8px;
+  border: 2px dashed #e0e0e0;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error {
+  color: #d32f2f;
+  background: #ffebee;
+  border-radius: 8px;
+}
+
+.validation-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 10px;
+  font-style: italic;
+}

@@ -13,6 +13,19 @@ services:
     networks:
       - labnet
 
+  frontend:
+    build: ./frontend
+    container_name: lab_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - labnet
+    environment:
+      - REACT_APP_API_URL=http://backend:8000/api
+
   mock-agent-1:
     image: python:3.11-slim
     container_name: mock_agent_1

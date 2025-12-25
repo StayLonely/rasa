@@ -1,5 +1,5 @@
 {
-  "next_id": 4,
+  "next_id": 5,
   "agents": [
     {
       "name": "support_agent",
@@ -50,6 +50,6 @@
       "requires_training": false
     }
   ],
-  "saved_at": "2025-12-24T10:22:25.520478",
+  "saved_at": "2025-12-25T18:38:02.832041",
   "total_agents": 3
 }

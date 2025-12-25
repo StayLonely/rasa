@@ -1,0 +1,70 @@
+.nlu-editor {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nlu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.nlu-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.nlu-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.nlu-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+  font-weight: 500;
+}
+
+.tab-button:hover {
+  background-color: #f0f0f0;
+}
+
+.nlu-content {
+  min-height: 400px;
+}
+
+.unsaved-changes-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 10px 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #ffeaa7;
+  font-size: 14px;
+}
