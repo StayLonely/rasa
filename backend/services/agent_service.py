@@ -36,6 +36,21 @@ class AgentService:
 
                 self.agent_id_counter = data.get('next_id', 1)
 
+                # Проверяем коллизии портов между агентами (несколько агентов на одном порту)
+                used_ports = set()
+                changed = False
+                for agent in self.agents_db:
+                    if agent.port in used_ports:
+                        # Если порт дублируется в состоянии — переназначаем новому агенту свободный порт
+                        new_port = self.find_free_port()
+                        print(f"⚠️ Порт {agent.port} дублируется -> переназначаем {agent.name} на порт {new_port}")
+                        agent.port = new_port
+                        agent.updated_at = datetime.now().isoformat()
+                        changed = True
+                    used_ports.add(agent.port)
+
+                if changed:
+                    self.save_state()
         except Exception as e:
             print(f"❌ Ошибка загрузки состояния: {e}")
             self.agents_db = []
@@ -67,8 +82,8 @@ class AgentService:
 
         agent_id = self.agent_id_counter
         self.agent_id_counter += 1
-
-        agent_port = 5004 + agent_id
+        # Подбираем свободный порт (избегаем коллизий с уже существующими агентами и занятными портами)
+        agent_port = self.find_free_port()
         template_agent = "faq_agent" if agent_data.agent_type == AgentType.FAQ else "form_agent"
         new_agent_folder = f"{agent_data.name.lower().replace(' ', '_')}_{agent_id}"
         new_agent_path = os.path.join(self.base_agents_path, new_agent_folder)
@@ -125,6 +140,29 @@ class AgentService:
             self.agents_db.append(agent)
             self.save_state()
             return agent
+
+    def _is_port_in_use(self, port: int) -> bool:
+        import socket
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(("0.0.0.0", port))
+            except OSError:
+                return True
+        return False
+
+    def find_free_port(self, start: int = 5005, end: int = 6000) -> int:
+        """Find a free port not used by agents_db and not in use on the system."""
+        used = {agent.port for agent in self.agents_db if agent.port}
+        for p in range(start, end):
+            if p in used:
+                continue
+            if not self._is_port_in_use(p):
+                return p
+        # fallback: just return next sequential port
+        p = start
+        while p in used:
+            p += 1
+        return p
 
     def get_agent(self, agent_id: int) -> Optional[Agent]:
         for agent in self.agents_db:

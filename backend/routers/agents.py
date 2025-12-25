@@ -7,6 +7,7 @@ from backend.models import Agent, AgentCreate, TrainingRequest, MessageRequest, 
 from backend.services.agent_service import agent_service
 from backend.rasa_integration import rasa_integration
 from backend.dialog_logger import dialog_logger
+from backend.rasa_integration import rasa_integration
 
 router = APIRouter(prefix="/api/agents", tags=["agents"])
 
@@ -151,3 +152,21 @@ async def delete_agent(agent_id: int):
     if not agent_service.delete_agent(agent_id):
         raise HTTPException(status_code=404, detail="Agent not found")
     return {"message": f"Agent {agent_id} deleted"}
+
+
+@router.post("/{agent_id}/stop")
+async def stop_agent(agent_id: int):
+    """Остановить процесс агента, слушающий его порт (если возможно)."""
+    agent = agent_service.get_agent(agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+
+    result = rasa_integration.stop_agent(agent.port)
+    if result.get("success"):
+        agent.status = "stopped"
+        agent.requires_training = False
+        agent.updated_at = __import__('datetime').datetime.now().isoformat()
+        agent_service.save_state()
+        return {"message": f"Agent {agent_id} stopped", "detail": result.get("message")}
+    else:
+        raise HTTPException(status_code=500, detail=result.get("message"))

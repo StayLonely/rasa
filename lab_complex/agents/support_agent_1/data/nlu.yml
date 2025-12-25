@@ -1,0 +1,11 @@
+nlu:
+- intent: greet
+  examples: |
+    - привет
+    - здравствуйте
+
+- intent: support_request
+  examples: |
+    - у меня проблема с входом
+    - не работает платеж
+    - приложение падает

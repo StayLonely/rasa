@@ -1,0 +1,10 @@
+nlu:
+- intent: greet
+  examples: |
+    - привет
+    - здарова
+
+- intent: info
+  examples: |
+    - расскажи о себе
+    - что ты умеешь

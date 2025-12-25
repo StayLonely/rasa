@@ -1,0 +1,11 @@
+nlu:
+- intent: greet
+  examples: |
+    - привет
+    - добрый день
+
+- intent: order_create
+  examples: |
+    - хочу заказать товар
+    - как сделать заказ
+    - оформить покупку

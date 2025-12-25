@@ -1,5 +1,5 @@
 {
-  "next_id": 2,
+  "next_id": 8,
   "logs": [
     {
       "id": 1,
@@ -12,7 +12,91 @@
       "entities": [],
       "timestamp": "2025-11-30T13:56:16.988929",
       "processing_time_ms": 27.589082717895508
+    },
+    {
+      "id": 2,
+      "agent_id": 1,
+      "sender": "tester",
+      "user_message": "привет",
+      "bot_response": [
+        "Echo: привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2025-12-24T09:51:07.857856",
+      "processing_time_ms": 6.461858749389648
+    },
+    {
+      "id": 3,
+      "agent_id": 1,
+      "sender": "tester1",
+      "user_message": "привет",
+      "bot_response": [
+        "Echo(5005): привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2025-12-24T10:18:11.064255",
+      "processing_time_ms": 20.500898361206055
+    },
+    {
+      "id": 4,
+      "agent_id": 2,
+      "sender": "tester2",
+      "user_message": "хочу заказать",
+      "bot_response": [
+        "Echo(5006): хочу заказать"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2025-12-24T10:18:15.442181",
+      "processing_time_ms": 6.832122802734375
+    },
+    {
+      "id": 5,
+      "agent_id": 3,
+      "sender": "tester3",
+      "user_message": "расскажи о себе",
+      "bot_response": [
+        "Echo(5007): расскажи о себе"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2025-12-24T10:18:20.736137",
+      "processing_time_ms": 7.145881652832031
+    },
+    {
+      "id": 6,
+      "agent_id": 1,
+      "sender": "user",
+      "user_message": "привет",
+      "bot_response": [
+        "Echo: привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2025-12-25T10:40:19.829957",
+      "processing_time_ms": 19.118070602416992
+    },
+    {
+      "id": 7,
+      "agent_id": 1,
+      "sender": "user",
+      "user_message": "тест",
+      "bot_response": [
+        "Echo: тест"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2025-12-25T11:00:02.548904",
+      "processing_time_ms": 9.93800163269043
     }
   ],
-  "saved_at": "2025-11-30T13:56:16.989008"
+  "saved_at": "2025-12-25T11:00:02.549006"
 }

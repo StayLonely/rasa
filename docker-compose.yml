@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    container_name: lab_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app:cached
+    environment:
+      - PYTHONPATH=/app
+    networks:
+      - labnet
+
+  mock-agent-1:
+    image: python:3.11-slim
+    container_name: mock_agent_1
+    command: ["sh","-c","pip install flask && python /srv/mock_agent.py"]
+    volumes:
+      - ./deploy/mock_agent:/srv:ro
+    ports:
+      - "5008:5008"
+    networks:
+      - labnet
+
+volumes:
+  backend_data:
+
+networks:
+  labnet:
+    driver: bridge
