@@ -16,7 +16,7 @@ class IntentExample(BaseModel):
 
 
 class Intent(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100, regex=r'^[a-zA-Z_][a-zA-Z0-9_]*$')
+    name: str = Field(..., min_length=1, max_length=100, pattern=r'^[a-zA-Z_][a-zA-Z0-9_]*$')
     examples: List[IntentExample] = Field(..., min_items=2)
 
     @validator('name')
@@ -33,7 +33,7 @@ class Intent(BaseModel):
 
 
 class Entity(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100, regex=r'^[a-zA-Z_][a-zA-Z0-9_]*$')
+    name: str = Field(..., min_length=1, max_length=100, pattern=r'^[a-zA-Z_][a-zA-Z0-9_]*$')
     examples: List[str] = Field(..., min_items=1)
 
     @validator('name')

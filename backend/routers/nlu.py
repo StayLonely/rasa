@@ -5,6 +5,8 @@ from backend.nlu_models import NLUData, NLUUpdateRequest
 from backend.models import AgentStatus
 from backend.services.agent_service import agent_service
 from backend.nlu_service import NLUService
+from backend.rasa_integration import rasa_integration, train_agent_task
+import threading
 
 router = APIRouter(prefix="/api/agents/{agent_id}/nlu", tags=["NLU"])
 nlu_service = NLUService()
@@ -52,9 +54,19 @@ async def update_nlu_data(
         if not success:
             raise HTTPException(status_code=500, detail="Failed to update domain data")
 
-        # Помечаем агента как требующего обучения
+        # Помечаем агента как требующего обучения и запускаем фоновой тренинг
         agent.requires_training = True
-        agent.status = AgentStatus.REQUIRES_TRAINING
+        agent.status = AgentStatus.TRAINING
+        # Сохраняем состояние сразу, чтобы фронтенд видел статус TRAINING
+        try:
+            agent_service.save_state()
+        except Exception:
+            pass
+
+        # Запускаем тренинг в фоне. По завершении `rasa_integration.train_agent`
+        # метод сам обновит статус агента (READY/ERROR) через agent_service.
+        # Запускаем тренировку в отдельном потоке (обход потенциальных проблем с BackgroundTasks)
+        threading.Thread(target=train_agent_task, args=(agent_id, agent.port), daemon=True).start()
 
         return {
             "message": "NLU data updated successfully",

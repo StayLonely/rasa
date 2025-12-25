@@ -15,6 +15,7 @@ class AgentStatus(str, Enum):
     READY = "ready"
     ERROR = "error"
     REQUIRES_TRAINING = "requires_training"
+    STOPPED = "stopped"
 
 
 class AgentBase(BaseModel):
