@@ -1,88 +1,135 @@
 .create-agent-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
+  padding: 20px;
 }
 
 .create-agent-form h2 {
-  margin: 0 0 1.5rem 0;
+  margin-top: 0;
+  margin-bottom: 20px;
   color: #333;
+  font-size: 20px;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   font-weight: 500;
   color: #333;
 }
 
 .form-group input,
-.form-group textarea,
-.form-group select {
+.form-group select,
+.form-group textarea {
   width: 100%;
-  padding: 0.75rem;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
-  border-color: #1976d2;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-.form-group input:disabled,
-.form-group textarea:disabled,
-.form-group select:disabled {
-  background: #f5f5f5;
-  cursor: not-allowed;
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 1rem;
-  background: #1976d2;
+  background-color: #007bff;
   color: white;
   border: none;
+  padding: 12px 24px;
   border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
   transition: background-color 0.2s;
 }
 
-.submit-btn:hover:not(:disabled) {
-  background: #1565c0;
+.submit-btn:hover {
+  background-color: #0056b3;
 }
 
 .submit-btn:disabled {
-  background: #ccc;
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
 .error-message {
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #ffebee;
-  color: #d32f2f;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 12px;
   border-radius: 4px;
-  border-left: 4px solid #d32f2f;
+  margin-top: 15px;
 }
 
 .success-message {
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #e8f5e8;
-  color: #2e7d32;
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 12px;
   border-radius: 4px;
-  border-left: 4px solid #2e7d32;
+  margin-top: 15px;
+}
+
+/* Стили для примеров фраз */
+.example-phrase-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.example-phrase-input input {
+  flex: 1;
+}
+
+.remove-phrase-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.remove-phrase-btn:hover {
+  background-color: #c82333;
+}
+
+.remove-phrase-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.add-phrase-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.add-phrase-btn:hover {
+  background-color: #218838;
+}
+
+.add-phrase-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

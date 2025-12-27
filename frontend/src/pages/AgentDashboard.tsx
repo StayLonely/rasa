@@ -11,8 +11,9 @@ import './css/AgentDashboard.css';
 const AgentDashboard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'overview' | 'nlu' | 'dialogs' | 'chat' | 'logs'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'nlu' | 'intents' | 'entities' | 'dialogs' | 'chat' | 'logs'>('overview');
   const [isEditing, setIsEditing] = useState(false);
+  const [nluActiveTab, setNluActiveTab] = useState<'intents' | 'entities'>('intents');
   const [editData, setEditData] = useState<Partial<AgentCreate>>({});
   
   const queryClient = useQueryClient();
@@ -226,12 +227,24 @@ const AgentDashboard: React.FC = () => {
               <h2>Настройка NLU</h2>
               <p>Управление интентами и сущностями агента</p>
             </div>
+            <div className="nlu-tabs">
+              <button
+                className={`tab-button ${nluActiveTab === 'intents' ? 'active' : ''}`}
+                onClick={() => setNluActiveTab('intents')}
+              >
+                Интенты
+              </button>
+              <button
+                className={`tab-button ${nluActiveTab === 'entities' ? 'active' : ''}`}
+                onClick={() => setNluActiveTab('entities')}
+              >
+                Сущности
+              </button>
+            </div>
             <div className="nlu-content">
               <div className="nlu-section">
-                <IntentManagement agentId={currentAgent.id} />
-              </div>
-              <div className="nlu-section">
-                <EntityManagement agentId={currentAgent.id} />
+                {nluActiveTab === 'intents' && <IntentManagement agentId={currentAgent.id} />}
+                {nluActiveTab === 'entities' && <EntityManagement agentId={currentAgent.id} />}
               </div>
             </div>
           </div>

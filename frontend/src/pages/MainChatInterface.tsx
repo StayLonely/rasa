@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { agentAPI, Agent } from '../services/api';
 import CreateAgentForm from '../components/CreateAgentForm';
+import CreateEntityFormSimple from '../components/CreateEntityFormSimple';
+
 import './css/MainChatInterface.css';
 
 /**
@@ -23,6 +25,10 @@ const MainChatInterface: React.FC = () => {
   
   // Выбранный агент для общения
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  
+  // Состояние для управления отображением форм
+  const [showCreateAgentForm, setShowCreateAgentForm] = useState(false);
+  const [showCreateEntityForm, setShowCreateEntityForm] = useState(false);
   
   // Список сообщений в чате
   const [messages, setMessages] = useState([
@@ -109,6 +115,56 @@ const MainChatInterface: React.FC = () => {
 
   return (
     <div className="main-chat-interface">
+      {/* Модальное окно для формы создания агента */}
+      {showCreateAgentForm && (
+        <div
+          className="modal-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCreateAgentForm(false);
+            }
+          }}
+        >
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2>Создать нового агента</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowCreateAgentForm(false)}
+              >
+                ×
+              </button>
+            </div>
+            <CreateAgentForm />
+          </div>
+        </div>
+      )}
+      
+      {/* Модальное окно для формы создания сущности */}
+      {showCreateEntityForm && (
+        <div
+          className="modal-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCreateEntityForm(false);
+            }
+          }}
+        >
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2>Создать новую сущность</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowCreateEntityForm(false)}
+              >
+                ×
+              </button>
+            </div>
+            <CreateEntityFormSimple />
+          </div>
+        </div>
+      )}
+      
       {/* Левая панель управления */}
       <div className={`left-panel ${isLeftPanelOpen ? 'open' : 'collapsed'}`}>
         <div className="panel-header">
@@ -126,8 +182,19 @@ const MainChatInterface: React.FC = () => {
             {!selectedAgent ? (
               <>
                 <div className="panel-section">
-                  <h3>Создать агента</h3>
-                  <CreateAgentForm />
+                  <h3>Действия</h3>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setShowCreateAgentForm(true)}
+                  >
+                    Создать агента
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setShowCreateEntityForm(true)}
+                  >
+                    Создать сущность
+                  </button>
                 </div>
                 
                 <div className="panel-section">

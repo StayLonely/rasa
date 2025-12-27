@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Intent, IntentCreate } from '../services/api';
+import CreateExampleForm from './CreateExampleForm';
 import './css/IntentManagement.css';
 
 /**
@@ -43,6 +44,9 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
       ]
     }
   ]);
+  
+  const [showExampleForm, setShowExampleForm] = useState(false);
+  const [selectedIntentId, setSelectedIntentId] = useState<number | null>(null);
 
   const resetForm = () => {
     setFormData({
@@ -129,6 +133,27 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
     newExamples.splice(index, 1);
     setFormData({...formData, examples: newExamples});
   };
+
+  const handleAddExample = (intentId: number) => {
+    setSelectedIntentId(intentId);
+    setShowExampleForm(true);
+  };
+
+  const handleBackFromExampleForm = () => {
+    setShowExampleForm(false);
+    setSelectedIntentId(null);
+  };
+
+  // Показываем форму добавления примеров, если showExampleForm равно true
+  if (showExampleForm && selectedIntentId) {
+    return (
+      <CreateExampleForm 
+        agentId={agentId}
+        intentId={selectedIntentId}
+        onBack={handleBackFromExampleForm}
+      />
+    );
+  }
 
   return (
     <div className="intent-management">
@@ -258,13 +283,19 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
                   </ul>
                 </div>
                 <div className="intent-actions">
-                  <button 
+                  <button
                     className="btn btn-secondary btn-small"
                     onClick={() => handleEdit(intent)}
                   >
                     Редактировать
                   </button>
-                  <button 
+                  <button
+                    className="btn btn-primary btn-small"
+                    onClick={() => handleAddExample(intent.id)}
+                  >
+                    Добавить пример
+                  </button>
+                  <button
                     className="btn btn-danger btn-small"
                     onClick={() => handleDelete(intent.id, intent.name)}
                   >
@@ -285,5 +316,3 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
 };
 
 export default IntentManagement;
-
-export {};

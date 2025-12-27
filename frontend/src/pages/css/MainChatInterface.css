@@ -1,23 +1,18 @@
 .main-chat-interface {
   display: flex;
-  height: calc(100vh - 120px);
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  background: white;
-  box-sizing: border-box;
+  height: 100vh;
+  background-color: #f5f5f5;
 }
 
-/* Left Panel */
+/* Левая панель управления */
 .left-panel {
   width: 300px;
-  border-right: 1px solid #ddd;
-  background: #f8f9fa;
-  transition: all 0.3s ease;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .left-panel.collapsed {
@@ -29,108 +24,132 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  border-bottom: 1px solid #ddd;
-  background: #e9ecef;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .panel-header h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #333;
 }
 
 .toggle-panel-btn {
-  background: #007bff;
-  color: white;
+  background: none;
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 14px;
-}
-
-.toggle-panel-btn:hover {
-  background: #0056b3;
+  color: #666;
+  padding: 5px;
 }
 
 .panel-content {
-  padding: 15px;
-  overflow-y: auto;
   flex: 1;
+  overflow-y: auto;
+  padding: 15px;
 }
 
 .panel-section {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .panel-section h3 {
-  margin: 0 0 10px 0;
-  font-size: 1rem;
-  color: #495057;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
 }
 
-.btn-block {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.agent-list, .entity-list {
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
+/* Стили для кнопок */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 5px 0;
+  border: none;
   border-radius: 4px;
-  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
 }
 
-.agent-item, .entity-item {
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+/* Список агентов */
+.agent-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.agent-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
 }
 
-.agent-item:last-child, .entity-item:last-child {
-  border-bottom: none;
+.agent-item span {
+  flex: 1;
+  font-weight: 500;
 }
 
-.agent-actions, .entity-actions {
+.agent-actions {
   display: flex;
   gap: 5px;
 }
 
-.btn-icon {
-  background: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  cursor: pointer;
-  font-size: 12px;
+/* Пустое состояние */
+.empty-state {
+  text-align: center;
+  padding: 20px;
+  color: #666;
 }
 
-.btn-icon:hover {
-  background: #e2e6ea;
-}
-
-/* Chat Area */
+/* Основная область чата */
 .chat-area {
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #ddd;
-  min-width: 0; /* Allow flex item to shrink below content size */
+  background-color: #ffffff;
 }
 
 .chat-header {
   padding: 15px;
-  border-bottom: 1px solid #ddd;
-  background: #f8f9fa;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .chat-header h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #333;
 }
 
@@ -138,58 +157,53 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .message {
-  margin-bottom: 15px;
-  display: flex;
-}
-
-.message.user {
-  justify-content: flex-end;
-}
-
-.message.bot {
-  justify-content: flex-start;
-}
-
-.message-content {
   max-width: 70%;
-  padding: 10px 15px;
+  padding: 12px 16px;
   border-radius: 18px;
   font-size: 14px;
   line-height: 1.4;
 }
 
-.message.user .message-content {
-  background: #007bff;
+.message.user {
+  align-self: flex-end;
+  background-color: #007bff;
   color: white;
   border-bottom-right-radius: 4px;
 }
 
-.message.bot .message-content {
-  background: #e9ecef;
+.message.bot {
+  align-self: flex-start;
+  background-color: #f1f1f1;
   color: #333;
   border-bottom-left-radius: 4px;
 }
 
+.message-content {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .chat-input-area {
   padding: 15px;
-  border-top: 1px solid #ddd;
-  background: white;
-  display: flex;
-  gap: 10px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
 }
 
 .chat-input-area textarea {
-  flex: 1;
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   resize: none;
   font-family: inherit;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .chat-input-area textarea:focus {
@@ -199,42 +213,56 @@
 }
 
 .send-button {
-  align-self: flex-end;
-  padding: 10px 20px;
-  background: #007bff;
+  background-color: #007bff;
   color: white;
   border: none;
+  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
 }
 
 .send-button:hover {
-  background: #0056b3;
+  background-color: #0056b3;
 }
 
 .send-button:disabled {
-  background: #6c757d;
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-/* Diagnostic Panel */
+.chat-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Панель диагностики */
 .diagnostic-panel {
   width: 300px;
+  background-color: #ffffff;
+  border-left: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  background: #f8f9fa;
-  flex-shrink: 0;
 }
 
 .diagnostic-panel .panel-header {
-  background: #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.diagnostic-panel .panel-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
 }
 
 .diagnostic-content {
-  padding: 15px;
-  overflow-y: auto;
   flex: 1;
+  overflow-y: auto;
+  padding: 15px;
 }
 
 .diagnostic-section {
@@ -242,92 +270,150 @@
 }
 
 .diagnostic-section h3 {
-  margin: 0 0 10px 0;
-  font-size: 1rem;
-  color: #495057;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
 }
 
 .intent-info {
-  padding: 10px;
-  background: white;
-  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background-color: #f8f9fa;
   border-radius: 4px;
-  margin-bottom: 10px;
 }
 
 .intent-name {
-  font-weight: bold;
+  font-weight: 500;
   color: #007bff;
 }
 
 .confidence {
-  color: #6c757d;
-  font-size: 0.9rem;
+  font-size: 12px;
+  color: #666;
 }
 
 .entities-list {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .entity-info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-}
-
-.entity-info:last-child {
-  margin-bottom: 0;
+  align-items: center;
+  padding: 8px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  font-size: 13px;
 }
 
 .entity-name {
-  font-weight: bold;
-  color: #28a745;
-}
-
-.entity-value {
+  font-weight: 500;
   color: #333;
 }
 
+.entity-value {
+  font-weight: 500;
+  color: #007bff;
+}
+
 .trace-info {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .trace-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-}
-
-.trace-item:last-child {
-  margin-bottom: 0;
+  padding: 8px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  font-size: 13px;
 }
 
 .trace-label {
-  font-weight: bold;
-  color: #6c757d;
-}
-
-.trace-value {
+  font-weight: 500;
   color: #333;
 }
 
-/* Collapsed Panel */
-.left-panel.collapsed .panel-content {
-  display: none;
+.trace-value {
+  color: #007bff;
 }
 
-.left-panel.collapsed .panel-header h2 {
-  display: none;
-}
-
-.left-panel.collapsed .panel-header {
+/* Стили для модальных окон */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
   justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .left-panel {
+    width: 250px;
+  }
+  
+  .diagnostic-panel {
+    display: none;
+  }
+  
+  .message {
+    max-width: 85%;
+  }
 }

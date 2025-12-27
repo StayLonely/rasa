@@ -36,6 +36,7 @@ export interface AgentCreate {
   name: string;
   description: string;
   agent_type: AgentType;
+  example_phrases?: string[];
 }
 
 export interface MessageRequest {

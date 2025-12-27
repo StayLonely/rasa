@@ -23,10 +23,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <div className="App">
-          <header className="app-header">
-            <h1>Лабораторный комплекс чат-ботов</h1>
-            <p>Создание и тестирование AI агентов</p>
-          </header>
           <main className="app-main">
             <Routes>
               <Route path="/" element={

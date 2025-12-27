@@ -18,6 +18,7 @@ interface DiagnosticData {
   intent?: string;
   confidence?: number;
   entities?: Array<{ entity: string; value: string; confidence: number }>;
+  trace?: string[];
 }
 
 const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
@@ -66,7 +67,14 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
           { entity: 'email', value: 'test@example.com', confidence: 0.92 }
         ] : inputText.match(/\d+/) ? [
           { entity: 'number', value: inputText.match(/\d+/)![0], confidence: 0.88 }
-        ] : undefined
+        ] : undefined,
+        trace: [
+          "Получено сообщение пользователя",
+          "Определен интент: " + (inputText.toLowerCase().includes('привет') ? 'greeting' : 
+                                 inputText.toLowerCase().includes('пока') ? 'goodbye' : 'info_request'),
+          "Извлечены сущности: " + (inputText.includes('@') ? 'email' : inputText.match(/\d+/) ? 'number' : 'none'),
+          "Сформирован ответ"
+        ]
       };
 
       // Моковый ответ агента
@@ -95,7 +103,8 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
       setDiagnosticData({
         intent: mockResponse.intent,
         confidence: mockDiagnosticData.confidence,
-        entities: mockResponse.entities
+        entities: mockResponse.entities,
+        trace: mockDiagnosticData.trace
       });
       
       setIsLoading(false);
@@ -111,6 +120,102 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
 
   return (
     <div className="chat-interface">
+      <div className="chat-main">
+        {/* Кнопки управления */}
+        <div className="action-buttons">
+          <button className="btn btn-primary">Добавить агента</button>
+          <button className="btn btn-secondary">Добавить сущность</button>
+        </div>
+        
+        {/* Таблица сохраненных сущностей */}
+        <div className="entities-table-container">
+          <h3>Сохраненные сущности</h3>
+          <table className="entities-table">
+            <thead>
+              <tr>
+                <th>Название</th>
+                <th>Тип</th>
+                <th>Значения</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>email</td>
+                <td>regex</td>
+                <td>{"\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"}</td>
+              </tr>
+              <tr>
+                <td>number</td>
+                <td>regex</td>
+                <td>\d+</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <hr className="divider" />
+        
+        {/* Диагностика */}
+        <div className="diagnostic-section">
+          <h3>Диагностика</h3>
+          {diagnosticData ? (
+            <div className="diagnostic-content">
+              {/* Интент и уверенность */}
+              <div className="diagnostic-item">
+                <div className="intent-confidence">
+                  <span className="intent-label">Интент:</span>
+                  <span className="intent-value">{diagnosticData.intent}</span>
+                  <span className="confidence-label">Уверенность:</span>
+                  <span className="confidence-value">{(diagnosticData.confidence || 0).toFixed(2)}</span>
+                </div>
+              </div>
+              
+              {/* Найденные сущности */}
+              {diagnosticData.entities && diagnosticData.entities.length > 0 && (
+                <div className="diagnostic-item">
+                  <h4>Найденные сущности</h4>
+                  <table className="entities-table">
+                    <thead>
+                      <tr>
+                        <th>Сущность</th>
+                        <th>Значение</th>
+                        <th>Уверенность</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {diagnosticData.entities.map((entity, index) => (
+                        <tr key={index}>
+                          <td>{entity.entity}</td>
+                          <td>{entity.value}</td>
+                          <td>{entity.confidence.toFixed(2)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              
+              {/* Трассировка */}
+              {diagnosticData.trace && diagnosticData.trace.length > 0 && (
+                <div className="diagnostic-item">
+                  <h4>Трассировка</h4>
+                  <ul className="trace-list">
+                    {diagnosticData.trace.map((step, index) => (
+                      <li key={index}>{step}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="diagnostic-empty">
+              Отправьте сообщение для получения диагностики
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Чат */}
       <div className="chat-container">
         <div className="chat-messages">
           {messages.map(message => (
@@ -156,40 +261,8 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
           </button>
         </div>
       </div>
-      
-      <div className="diagnostic-panel">
-        <h3>Диагностика</h3>
-        {diagnosticData ? (
-          <div className="diagnostic-content">
-            <div className="diagnostic-item">
-              <strong>Интент:</strong> {diagnosticData.intent}
-            </div>
-            <div className="diagnostic-item">
-              <strong>Уверенность:</strong> {(diagnosticData.confidence || 0).toFixed(2)}
-            </div>
-            {diagnosticData.entities && diagnosticData.entities.length > 0 && (
-              <div className="diagnostic-item">
-                <strong>Сущности:</strong>
-                <ul>
-                  {diagnosticData.entities.map((entity, index) => (
-                    <li key={index}>
-                      {entity.entity}: {entity.value} ({entity.confidence.toFixed(2)})
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="diagnostic-empty">
-            Отправьте сообщение для получения диагностики
-          </div>
-        )}
-      </div>
     </div>
   );
 };
 
 export default ChatInterface;
-
-export {};

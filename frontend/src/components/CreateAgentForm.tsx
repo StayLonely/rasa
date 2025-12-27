@@ -12,6 +12,7 @@ const CreateAgentForm: React.FC = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [agentType, setAgentType] = useState<AgentType>(AgentType.FAQ);
+  const [examplePhrases, setExamplePhrases] = useState<string[]>(['']);
   
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -20,6 +21,7 @@ const CreateAgentForm: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['agents'] });
       setName('');
       setDescription('');
+      setExamplePhrases(['']);
     },
     onError: (error) => {
       console.error('Ошибка создания агента:', error);
@@ -30,11 +32,30 @@ const CreateAgentForm: React.FC = () => {
     e.preventDefault();
     if (!name.trim()) return;
     
-    mutation.mutate({ 
-      name: name.trim(), 
-      description: description.trim(), 
-      agent_type: agentType 
+    mutation.mutate({
+      name: name.trim(),
+      description: description.trim(),
+      agent_type: agentType,
+      example_phrases: examplePhrases.filter(phrase => phrase.trim() !== '')
     });
+  };
+  
+  const addExamplePhrase = () => {
+    setExamplePhrases([...examplePhrases, '']);
+  };
+  
+  const removeExamplePhrase = (index: number) => {
+    if (examplePhrases.length > 1) {
+      const newPhrases = [...examplePhrases];
+      newPhrases.splice(index, 1);
+      setExamplePhrases(newPhrases);
+    }
+  };
+  
+  const updateExamplePhrase = (index: number, value: string) => {
+    const newPhrases = [...examplePhrases];
+    newPhrases[index] = value;
+    setExamplePhrases(newPhrases);
   };
 
   return (
@@ -77,6 +98,39 @@ const CreateAgentForm: React.FC = () => {
           <option value={AgentType.FAQ}>FAQ агент (вопрос-ответ)</option>
           <option value={AgentType.FORM}>Form агент (сбор данных)</option>
         </select>
+      </div>
+      
+      <div className="form-group">
+        <label>Примеры фраз для интента</label>
+        {examplePhrases.map((phrase, index) => (
+          <div key={index} className="example-phrase-input">
+            <input
+              type="text"
+              value={phrase}
+              onChange={(e) => updateExamplePhrase(index, e.target.value)}
+              placeholder={`Пример фразы ${index + 1}`}
+              disabled={mutation.isPending}
+            />
+            {examplePhrases.length > 1 && (
+              <button
+                type="button"
+                className="remove-phrase-btn"
+                onClick={() => removeExamplePhrase(index)}
+                disabled={mutation.isPending}
+              >
+                Удалить
+              </button>
+            )}
+          </div>
+        ))}
+        <button
+          type="button"
+          className="add-phrase-btn"
+          onClick={addExamplePhrase}
+          disabled={mutation.isPending}
+        >
+          Добавить пример фразы
+        </button>
       </div>
 
       <button 
