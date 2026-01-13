@@ -6,7 +6,7 @@
       "description": "Technical support agent",
       "agent_type": "faq",
       "id": 1,
-      "status": "ready",
+      "status": "stopped",
       "port": 5008,
       "config_path": "lab_complex/agents/support_agent_1/config.yml",
       "domain_path": "lab_complex/agents/support_agent_1/domain.yml",
@@ -14,7 +14,7 @@
       "stories_path": "lab_complex/agents/support_agent_1/data/stories.yml",
       "model_path": "lab_complex/agents/support_agent_1/models",
       "created_at": "2025-12-24T10:10:00",
-      "updated_at": "2025-12-24T10:22:25.520231",
+      "updated_at": "2026-01-13T15:44:00.987293",
       "requires_training": false
     },
     {
@@ -30,7 +30,7 @@
       "stories_path": "lab_complex/agents/order_agent_1/data/stories.yml",
       "model_path": "lab_complex/agents/order_agent_1/models",
       "created_at": "2025-12-24T10:10:00",
-      "updated_at": "2025-12-24T10:22:25.520351",
+      "updated_at": "2026-01-13T15:44:54.400765",
       "requires_training": false
     },
     {
@@ -50,6 +50,6 @@
       "requires_training": false
     }
   ],
-  "saved_at": "2025-12-24T10:22:25.520478",
+  "saved_at": "2026-01-13T15:44:54.400774",
   "total_agents": 3
 }

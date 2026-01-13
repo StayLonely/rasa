@@ -13,5 +13,14 @@ def root():
     return "OK", 200
 
 
+@app.route("/shutdown", methods=["POST"])
+def shutdown():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        return jsonify({"error": "shutdown not available"}), 500
+    func()
+    return jsonify({"message": "shutting down"}), 200
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5008)

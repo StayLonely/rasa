@@ -1,5 +1,4 @@
-version: "3.1"
 intents:
-  - greet
-  - support_request
+- test_intent
 responses: {}
+version: '3.1'
