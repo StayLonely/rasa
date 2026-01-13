@@ -1,5 +1,4 @@
-version: "3.1"
 intents:
-  - greet
-  - order_create
+- test_intent2
 responses: {}
+version: '3.1'

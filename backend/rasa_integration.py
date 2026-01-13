@@ -12,7 +12,8 @@ from backend.models import AgentStatus
 
 class RasaIntegration:
     def __init__(self):
-        self.base_url = "http://localhost"
+        import os
+        self.base_url = os.getenv("RASA_BASE_URL", "http://localhost")
 
     async def send_message(self, agent_port: int, message: str, sender: str = "user") -> Dict[str, Any]:
         """
@@ -123,26 +124,106 @@ class RasaIntegration:
 
         Возвращает dict: {success: bool, message: str}
         """
+        import re
         try:
-            # Попробуем получить PID через lsof
-            res = subprocess.run(["lsof", "-i", f":{agent_port}", "-t"], capture_output=True, text=True)
-            if res.returncode != 0 or not res.stdout.strip():
-                return {"success": False, "message": f"No process found listening on port {agent_port}"}
+            # 0) try graceful HTTP shutdown if agent exposes it
+            try:
+                import requests
+                shutdown_url = f"{self.base_url}:{agent_port}/shutdown"
+                res = requests.post(shutdown_url, timeout=3)
+                if res.status_code in (200, 204):
+                    return {"success": True, "message": f"Requested graceful shutdown at {shutdown_url}"}
+            except Exception:
+                pass
 
-            pids = [int(x) for x in res.stdout.strip().splitlines() if x.strip()]
-            for pid in pids:
+            # 1) try ss
+            # 5) try Docker socket to stop container exposing the port
+            try:
+                import docker as _docker
                 try:
-                    os.kill(pid, 15)
+                    client = _docker.from_env()
+                    for cont in client.containers.list():
+                        ports = cont.attrs.get('NetworkSettings', {}).get('Ports') or {}
+                        for key, mappings in (ports.items() if isinstance(ports, dict) else []):
+                            if not mappings:
+                                continue
+                            for mapping in mappings:
+                                host_port = mapping.get('HostPort')
+                                if host_port and int(host_port) == agent_port:
+                                    try:
+                                        cont.stop(timeout=5)
+                                        return {"success": True, "message": f"Stopped container {cont.name} exposing port {agent_port} (via docker socket)"}
+                                    except Exception as e:
+                                        return {"success": False, "message": f"Failed to stop container {cont.name}: {e}"}
                 except Exception:
+                    pass
+            except Exception:
+                pass
+            try:
+                res = subprocess.run(["ss", "-ltnp"], capture_output=True, text=True)
+                out = res.stdout or res.stderr
+                m = re.search(rf"[:.]?{agent_port}\b.*pid=(\d+),", out)
+                if m:
+                    pid = int(m.group(1))
                     try:
-                        os.kill(pid, 9)
-                    except Exception as e:
-                        return {"success": False, "message": f"Failed to kill pid {pid}: {e}"}
+                        os.kill(pid, 15)
+                    except Exception:
+                        try:
+                            os.kill(pid, 9)
+                        except Exception as e:
+                            return {"success": False, "message": f"Failed to kill pid {pid}: {e}"}
+                    return {"success": True, "message": f"Killed pid: {pid} (via ss)"}
+            except FileNotFoundError:
+                pass
 
-            return {"success": True, "message": f"Killed pids: {pids}"}
+            # 2) try netstat
+            try:
+                res = subprocess.run(["netstat", "-ltnp"], capture_output=True, text=True)
+                out = res.stdout or res.stderr
+                # netstat output often contains "pid/program" in the last column
+                m = re.search(rf":{agent_port}\b.*?(\d+)/(\S+)", out)
+                if m:
+                    pid = int(m.group(1))
+                    try:
+                        os.kill(pid, 15)
+                    except Exception:
+                        try:
+                            os.kill(pid, 9)
+                        except Exception as e:
+                            return {"success": False, "message": f"Failed to kill pid {pid}: {e}"}
+                    return {"success": True, "message": f"Killed pid: {pid} (via netstat)"}
+            except FileNotFoundError:
+                pass
 
-        except FileNotFoundError:
-            return {"success": False, "message": "lsof not available on system"}
+            # 3) try fuser
+            try:
+                res = subprocess.run(["fuser", f"{agent_port}/tcp", "-k"], capture_output=True, text=True)
+                if res.returncode == 0:
+                    return {"success": True, "message": f"Killed processes using port {agent_port} (via fuser)"}
+            except FileNotFoundError:
+                pass
+
+            # 4) try psutil if available
+            try:
+                import psutil
+                for conn in psutil.net_connections():
+                    laddr = getattr(conn, 'laddr', None)
+                    if laddr and getattr(laddr, 'port', None) == agent_port:
+                        pid = conn.pid
+                        if pid:
+                            try:
+                                os.kill(pid, 15)
+                            except Exception:
+                                try:
+                                    os.kill(pid, 9)
+                                except Exception as e:
+                                    return {"success": False, "message": f"Failed to kill pid {pid}: {e}"}
+                            return {"success": True, "message": f"Killed pid: {pid} (via psutil)"}
+            except Exception:
+                pass
+
+            return {"success": False, "message": f"No available method found to stop process on port {agent_port} or no process found"}
+
         except Exception as e:
             return {"success": False, "message": str(e)}
 
