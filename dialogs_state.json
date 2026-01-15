@@ -1,5 +1,5 @@
 {
-  "next_id": 9,
+  "next_id": 90,
   "logs": [
     {
       "id": 4,
@@ -28,7 +28,1141 @@
       "entities": [],
       "timestamp": "2025-12-24T10:18:20.736137",
       "processing_time_ms": 7.145881652832031
+    },
+    {
+      "id": 9,
+      "agent_id": 5,
+      "sender": "user",
+      "user_message": "Hello from test",
+      "bot_response": [
+        "Echo: Hello from test"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T16:28:19.882406",
+      "processing_time_ms": 6.576776504516602
+    },
+    {
+      "id": 10,
+      "agent_id": 5,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T16:30:10.667430",
+      "processing_time_ms": 3.90625
+    },
+    {
+      "id": 11,
+      "agent_id": 5,
+      "sender": "user",
+      "user_message": "Как делд",
+      "bot_response": [
+        "Echo: Как делд"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T16:30:15.810389",
+      "processing_time_ms": 3.8042068481445312
+    },
+    {
+      "id": 12,
+      "agent_id": 5,
+      "sender": "user",
+      "user_message": "а",
+      "bot_response": [
+        "Echo: а"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T16:30:19.551157",
+      "processing_time_ms": 3.7310123443603516
+    },
+    {
+      "id": 13,
+      "agent_id": 5,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T16:34:58.781989",
+      "processing_time_ms": 6.160497665405273
+    },
+    {
+      "id": 14,
+      "agent_id": 5,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T16:43:46.767343",
+      "processing_time_ms": 9.899139404296875
+    },
+    {
+      "id": 15,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "вфвф",
+      "bot_response": [
+        "Echo: вфвф"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T17:18:58.139486",
+      "processing_time_ms": 14.185190200805664
+    },
+    {
+      "id": 16,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:19:41.895272",
+      "processing_time_ms": 6.480932235717773
+    },
+    {
+      "id": 17,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:28:21.995593",
+      "processing_time_ms": 4.204511642456055
+    },
+    {
+      "id": 18,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:28:33.427723",
+      "processing_time_ms": 4.488706588745117
+    },
+    {
+      "id": 19,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "ААА",
+      "bot_response": [
+        "Echo: ААА"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:28:36.300859",
+      "processing_time_ms": 4.689693450927734
+    },
+    {
+      "id": 20,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:31:42.013392",
+      "processing_time_ms": 4.578828811645508
+    },
+    {
+      "id": 21,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Ghbd",
+      "bot_response": [
+        "Echo: Ghbd"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:33:12.612192",
+      "processing_time_ms": 4.14729118347168
+    },
+    {
+      "id": 22,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:34:37.186426",
+      "processing_time_ms": 4.093647003173828
+    },
+    {
+      "id": 23,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Echo: Привет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:34:49.623374",
+      "processing_time_ms": 4.443645477294922
+    },
+    {
+      "id": 24,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Прпривет",
+      "bot_response": [
+        "Echo: Прпривет"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:36:42.233911",
+      "processing_time_ms": 4.285335540771484
+    },
+    {
+      "id": 25,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "??????",
+      "bot_response": [
+        "Echo: ??????"
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:38:27.195126",
+      "processing_time_ms": 4.030704498291016
+    },
+    {
+      "id": 26,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:42:29.367867",
+      "processing_time_ms": 5.138158798217773
+    },
+    {
+      "id": 27,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:42:35.385590",
+      "processing_time_ms": 4.2362213134765625
+    },
+    {
+      "id": 28,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:42:51.414767",
+      "processing_time_ms": 3.8290023803710938
+    },
+    {
+      "id": 29,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "??????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:43:26.221120",
+      "processing_time_ms": 3.9894580841064453
+    },
+    {
+      "id": 30,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:43:34.424346",
+      "processing_time_ms": 3.979921340942383
+    },
+    {
+      "id": 31,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Продукту",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:43:38.424726",
+      "processing_time_ms": 4.774808883666992
+    },
+    {
+      "id": 32,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "??????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:43:49.919960",
+      "processing_time_ms": 3.8127899169921875
+    },
+    {
+      "id": 33,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:44:47.611540",
+      "processing_time_ms": 4.758358001708984
+    },
+    {
+      "id": 34,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Сделать заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:45:00.568070",
+      "processing_time_ms": 4.540205001831055
+    },
+    {
+      "id": 35,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Спасибо",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:45:04.901324",
+      "processing_time_ms": 4.751682281494141
+    },
+    {
+      "id": 36,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "??????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:45:21.614956",
+      "processing_time_ms": 3.669261932373047
+    },
+    {
+      "id": 37,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:45:54.613249",
+      "processing_time_ms": 4.222631454467773
+    },
+    {
+      "id": 38,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T18:45:58.396114",
+      "processing_time_ms": 3.9708614349365234
+    },
+    {
+      "id": 39,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Пока",
+      "bot_response": [
+        "До свидания! Всего хорошего!"
+      ],
+      "intent": "goodbye",
+      "intent_confidence": 0.9,
+      "entities": [],
+      "timestamp": "2026-01-13T18:46:00.593510",
+      "processing_time_ms": 4.386663436889648
+    },
+    {
+      "id": 40,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T18:55:58.783415",
+      "processing_time_ms": 6.525993347167969
+    },
+    {
+      "id": 41,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T19:01:24.982892",
+      "processing_time_ms": 5.574941635131836
+    },
+    {
+      "id": 42,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу сделать заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:01:30.631925",
+      "processing_time_ms": 4.419565200805664
+    },
+    {
+      "id": 43,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T19:09:13.843588",
+      "processing_time_ms": 5.399227142333984
+    },
+    {
+      "id": 44,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу сделать заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:09:21.474764",
+      "processing_time_ms": 3.9196014404296875
+    },
+    {
+      "id": 45,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Пока",
+      "bot_response": [
+        "До свидания! Всего хорошего!"
+      ],
+      "intent": "goodbye",
+      "intent_confidence": 0.9,
+      "entities": [],
+      "timestamp": "2026-01-13T19:09:27.670696",
+      "processing_time_ms": 4.441022872924805
+    },
+    {
+      "id": 46,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T19:21:07.153664",
+      "processing_time_ms": 4.848003387451172
+    },
+    {
+      "id": 47,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:22:07.649197",
+      "processing_time_ms": 4.010677337646484
+    },
+    {
+      "id": 48,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T19:52:22.646671",
+      "processing_time_ms": 6.245613098144531
+    },
+    {
+      "id": 49,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:52:25.160484",
+      "processing_time_ms": 4.021406173706055
+    },
+    {
+      "id": 50,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T19:54:13.392062",
+      "processing_time_ms": 4.921913146972656
+    },
+    {
+      "id": 51,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу заказать телефон",
+      "bot_response": [
+        "Наши контакты: телефон +7(XXX)XXX-XX-XX, email: info@example.com"
+      ],
+      "intent": "faq_contacts",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T19:54:23.890845",
+      "processing_time_ms": 4.5261383056640625
+    },
+    {
+      "id": 52,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу заказать телефон",
+      "bot_response": [
+        "Наши контакты: телефон +7(XXX)XXX-XX-XX, email: info@example.com"
+      ],
+      "intent": "faq_contacts",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T19:55:29.911727",
+      "processing_time_ms": 3.583669662475586
+    },
+    {
+      "id": 53,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить что-то",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:55:42.423329",
+      "processing_time_ms": 3.961324691772461
+    },
+    {
+      "id": 54,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить что-то",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:56:02.462372",
+      "processing_time_ms": 3.9064884185791016
+    },
+    {
+      "id": 55,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить что-то",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:56:03.760594",
+      "processing_time_ms": 4.065036773681641
+    },
+    {
+      "id": 56,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить телефон",
+      "bot_response": [
+        "Наши контакты: телефон +7(XXX)XXX-XX-XX, email: info@example.com"
+      ],
+      "intent": "faq_contacts",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T19:56:11.372817",
+      "processing_time_ms": 4.3849945068359375
+    },
+    {
+      "id": 57,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:56:19.787401",
+      "processing_time_ms": 4.134654998779297
+    },
+    {
+      "id": 58,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "???? ?????? ???????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T19:59:24.618258",
+      "processing_time_ms": 3.520488739013672
+    },
+    {
+      "id": 59,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "хочу купить телефон",
+      "bot_response": [
+        "Наши контакты: телефон +7(XXX)XXX-XX-XX, email: info@example.com"
+      ],
+      "intent": "faq_contacts",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T19:59:36.242958",
+      "processing_time_ms": 3.8328170776367188
+    },
+    {
+      "id": 60,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:00:02.866887",
+      "processing_time_ms": 4.573345184326172
+    },
+    {
+      "id": 61,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:01:46.507662",
+      "processing_time_ms": 5.631208419799805
+    },
+    {
+      "id": 62,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:02:02.239301",
+      "processing_time_ms": 4.073143005371094
+    },
+    {
+      "id": 63,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "книга",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:02:10.617764",
+      "processing_time_ms": 3.8826465606689453
+    },
+    {
+      "id": 64,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:03:05.099837",
+      "processing_time_ms": 3.6132335662841797
+    },
+    {
+      "id": 65,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "книгп",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:03:07.602398",
+      "processing_time_ms": 4.148006439208984
+    },
+    {
+      "id": 66,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "ааа",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:03:10.310718",
+      "processing_time_ms": 4.073858261108398
+    },
+    {
+      "id": 67,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "вфвф",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:03:14.539634",
+      "processing_time_ms": 4.343271255493164
+    },
+    {
+      "id": 68,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "телефон",
+      "bot_response": [
+        "Наши контакты: телефон +7(XXX)XXX-XX-XX, email: info@example.com"
+      ],
+      "intent": "faq_contacts",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T20:03:18.974454",
+      "processing_time_ms": 4.184722900390625
+    },
+    {
+      "id": 69,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "ноутбук",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:03:22.943673",
+      "processing_time_ms": 4.204511642456055
+    },
+    {
+      "id": 70,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "какие способы оплаты?",
+      "bot_response": [
+        "Мы принимаем банковские карты, наличные и электронные платежи."
+      ],
+      "intent": "faq_payment",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T20:04:35.774471",
+      "processing_time_ms": 4.197120666503906
+    },
+    {
+      "id": 71,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "???? ???????? ?????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:08:03.082324",
+      "processing_time_ms": 4.141092300415039
+    },
+    {
+      "id": 72,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:08:10.486694",
+      "processing_time_ms": 4.578828811645508
+    },
+    {
+      "id": 73,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "???? ??????? ?????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:09:57.597838",
+      "processing_time_ms": 3.6385059356689453
+    },
+    {
+      "id": 74,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:10:07.073783",
+      "processing_time_ms": 3.957986831665039
+    },
+    {
+      "id": 75,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "????????",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:11:17.952690",
+      "processing_time_ms": 3.9186477661132812
+    },
+    {
+      "id": 76,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:21:33.203860",
+      "processing_time_ms": 4.334211349487305
+    },
+    {
+      "id": 77,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "доставка",
+      "bot_response": [
+        "Доставка осуществляется в течение 1-3 дней. Стоимость зависит от региона."
+      ],
+      "intent": "faq_delivery",
+      "intent_confidence": 0.85,
+      "entities": [],
+      "timestamp": "2026-01-13T20:22:04.497297",
+      "processing_time_ms": 4.752635955810547
+    },
+    {
+      "id": 78,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу заказать товар",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:22:19.587666",
+      "processing_time_ms": 4.260778427124023
+    },
+    {
+      "id": 79,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу заказать часы",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:22:24.586426",
+      "processing_time_ms": 4.731655120849609
+    },
+    {
+      "id": 80,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Хочу заказать ноутбук",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:22:31.904702",
+      "processing_time_ms": 4.369497299194336
+    },
+    {
+      "id": 81,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Как сделать заказ?",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:22:44.680118",
+      "processing_time_ms": 4.446506500244141
+    },
+    {
+      "id": 82,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "ноутбук",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:22:51.458141",
+      "processing_time_ms": 4.356145858764648
+    },
+    {
+      "id": 83,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:27:34.015253",
+      "processing_time_ms": 5.0563812255859375
+    },
+    {
+      "id": 84,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T20:27:46.578805",
+      "processing_time_ms": 3.9370059967041016
+    },
+    {
+      "id": 85,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:28:00.517469",
+      "processing_time_ms": 4.00543212890625
+    },
+    {
+      "id": 86,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Привет",
+      "bot_response": [
+        "Здравствуйте! Рад вас видеть. Чем могу помочь?"
+      ],
+      "intent": "greet",
+      "intent_confidence": 0.95,
+      "entities": [],
+      "timestamp": "2026-01-13T20:29:02.716985",
+      "processing_time_ms": 4.314422607421875
+    },
+    {
+      "id": 87,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Заказ",
+      "bot_response": [
+        "Для оформления заказа укажите, пожалуйста, что именно вас интересует."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:29:05.396309",
+      "processing_time_ms": 4.180431365966797
+    },
+    {
+      "id": 88,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "Мне нужно купить ноутбук",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:29:15.554591",
+      "processing_time_ms": 4.076242446899414
+    },
+    {
+      "id": 89,
+      "agent_id": 6,
+      "sender": "user",
+      "user_message": "часы",
+      "bot_response": [
+        "Спасибо за ваше сообщение. Я постараюсь помочь вам."
+      ],
+      "intent": "unknown",
+      "intent_confidence": 0.8,
+      "entities": [],
+      "timestamp": "2026-01-13T20:30:41.836926",
+      "processing_time_ms": 4.678487777709961
     }
   ],
-  "saved_at": "2026-01-13T15:31:14.103266"
+  "saved_at": "2026-01-13T20:30:41.837221"
 }
