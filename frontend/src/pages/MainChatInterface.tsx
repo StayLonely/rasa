@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { agentAPI, Agent } from '../services/api';
+import { agentAPI, lifecycleAPI, Agent, Intent, Entity } from '../services/api';
+import { useQueryClient } from '@tanstack/react-query';
 import CreateAgentForm from '../components/CreateAgentForm';
 import CreateEntityFormSimple from '../components/CreateEntityFormSimple';
+import NLUEditor from '../components/NLUEditor';
+import DialogLogsViewer from '../components/DialogLogsViewer';
 
 import './css/MainChatInterface.css';
 
@@ -25,16 +28,14 @@ const MainChatInterface: React.FC = () => {
   
   // Выбранный агент для общения
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const queryClient = useQueryClient();
   
   // Состояние для управления отображением форм
   const [showCreateAgentForm, setShowCreateAgentForm] = useState(false);
   const [showCreateEntityForm, setShowCreateEntityForm] = useState(false);
   
   // Список сообщений в чате
-  const [messages, setMessages] = useState([
-    { id: 1, text: 'Привет! Я ваш чат-бот. Как я могу вам помочь?', sender: 'bot' },
-    { id: 2, text: 'Здравствуйте! Я хотел бы узнать больше о ваших услугах.', sender: 'user' }
-  ]);
+  const [messages, setMessages] = useState<Array<{id: number, text: string, sender: 'user' | 'bot'}>>([]);
   
   // Текст в поле ввода сообщения
   const [inputValue, setInputValue] = useState('');
@@ -53,37 +54,90 @@ const MainChatInterface: React.FC = () => {
     queryKey: ['agents'],
     queryFn: agentAPI.getAgents,
   });
+  
+  // Получение интентов выбранного агента
+  const { data: intents = [] } = useQuery({
+    queryKey: ['intents', selectedAgent?.id],
+    queryFn: () => selectedAgent ? agentAPI.getIntents(selectedAgent.id) : Promise.resolve([]),
+    enabled: !!selectedAgent,
+  });
+  
+  // Получение сущностей выбранного агента
+  const { data: entities = [] } = useQuery({
+    queryKey: ['entities', selectedAgent?.id],
+    queryFn: () => selectedAgent ? agentAPI.getEntities(selectedAgent.id) : Promise.resolve([]),
+    enabled: !!selectedAgent,
+  });
 
   /**
    * Отправка сообщения в чат
    * Добавляет сообщение пользователя в список и симулирует ответ бота
    */
-  const handleSendMessage = () => {
-    // Проверяем, что сообщение не пустое
+  const handleSendMessage = async () => {
     if (inputValue.trim() === '') return;
-    
-    // Создаем новое сообщение от пользователя
-    const newMessage = {
-      id: messages.length + 1,
+
+    const userMessage = {
+      id: Date.now(),
       text: inputValue,
       sender: 'user' as 'user' | 'bot'
     };
-    
-    // Добавляем сообщение в список
-    setMessages([...messages, newMessage]);
-    
-    // Очищаем поле ввода
+
+    // Добавляем сообщение пользователя сразу в UI
+    setMessages(prev => [...prev, userMessage]);
     setInputValue('');
-    
-    // Симуляция ответа бота с задержкой
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: 'Это пример ответа бота. В реальной системе здесь будет ответ от AI агента.',
-        sender: 'bot' as 'user' | 'bot'
-      };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
+
+    // Если агент не выбран — оставляем локальную симуляцию
+    if (!selectedAgent) {
+      setTimeout(() => {
+        const botResponse = {
+          id: Date.now() + 1,
+          text: 'Это пример ответа бота. В реальной системе здесь будет ответ от AI агента.',
+          sender: 'bot' as 'user' | 'bot'
+        };
+        setMessages(prev => [...prev, botResponse]);
+      }, 800);
+      return;
+    }
+
+    try {
+      const resp = await agentAPI.sendMessage(selectedAgent.id, { message: inputValue, sender: 'user' });
+
+      // resp.response обычно массив строк — приводим к массиву и отображаем
+      const responses: string[] = Array.isArray(resp?.response) ? resp.response : (resp?.response ? [String(resp.response)] : []);
+      if (responses.length > 0) {
+        const botMsgs = responses.map((text, idx) => ({
+          id: Date.now() + idx + 2,
+          text,
+          sender: 'bot' as 'user' | 'bot'
+        }));
+        setMessages(prev => [...prev, ...botMsgs]);
+      }
+
+      // Обновляем диагностические данные из trace_metadata если есть
+      try {
+        console.debug('sendMessage resp', resp);
+        const trace = (resp as any).trace_metadata || (resp as any).trace || null;
+        if (trace) {
+          const intent = trace.intent && trace.intent.name ? trace.intent.name : diagnosticData.intent;
+          const confidence = trace.intent && trace.intent.confidence ? trace.intent.confidence : (trace.confidence || diagnosticData.confidence);
+          const entities = (trace.entities || []).map((e: any) => ({ name: e.entity || e.name || 'unknown', value: e.value || '', confidence: e.confidence || 0 }));
+          setDiagnosticData({ intent, confidence, entities });
+        }
+      } catch (e) {
+        console.warn('Failed to parse trace metadata', e);
+      }
+    } catch (err) {
+      // Пытаемся показать детальную ошибку сервера
+      let detailMsg = 'Ошибка при отправке сообщения на сервер.';
+      try {
+        const anyErr = err as any;
+        detailMsg = anyErr?.detail || anyErr?.message || (typeof anyErr === 'string' ? anyErr : JSON.stringify(anyErr));
+      } catch (e) {
+        // noop
+      }
+      setMessages(prev => [...prev, { id: Date.now() + 2, text: detailMsg, sender: 'bot' as 'user' | 'bot' }]);
+      console.error('sendMessage error', err);
+    }
   };
 
   /**
@@ -101,8 +155,70 @@ const MainChatInterface: React.FC = () => {
    * Выбор агента для общения
    * @param agent - выбранный агент
    */
-  const handleSelectAgent = (agent: Agent) => {
-    setSelectedAgent(agent);
+  const handleSelectAgent = async (agent: Agent) => {
+    try {
+      const fresh = await agentAPI.getAgent(agent.id);
+      setSelectedAgent(fresh);
+    } catch (e) {
+      console.error('getAgent error', e);
+      setSelectedAgent(agent);
+    }
+  };
+
+  const handleDeleteAgent = async (agentId: number) => {
+    if (!window.confirm('Удалить агента? Это действие нельзя отменить.')) return;
+    try {
+      await agentAPI.deleteAgent(agentId);
+      queryClient.invalidateQueries({ queryKey: ['agents'] });
+      if (selectedAgent && selectedAgent.id === agentId) setSelectedAgent(null);
+    } catch (e) {
+      console.error('deleteAgent error', e);
+      alert('Ошибка удаления агента');
+    }
+  };
+
+  const handleStopAgent = async (agentId: number) => {
+    try {
+      await lifecycleAPI.stopAgent(agentId);
+      // refresh agents
+      queryClient.invalidateQueries({ queryKey: ['agents'] });
+      if (selectedAgent && selectedAgent.id === agentId) {
+        const fresh = await agentAPI.getAgent(agentId);
+        setSelectedAgent(fresh);
+      }
+    } catch (e) {
+      console.error('stopAgent error', e);
+      alert('Ошибка остановки агента');
+    }
+  };
+
+  // Состояние для отображения процесса тренировки
+  const [isTraining, setIsTraining] = useState(false);
+  const [showNLUEditor, setShowNLUEditor] = useState(false);
+  const [showLogsViewer, setShowLogsViewer] = useState(false);
+
+  // Запустить тренировку агента и опрашивать статус
+  const handleTrainAgent = async () => {
+    if (!selectedAgent) return;
+    try {
+      setIsTraining(true);
+      await agentAPI.trainAgent(selectedAgent.id);
+
+      // Пытаемся опрашивать статус агента до 20 раз (макс ~20s)
+      for (let i = 0; i < 20; i++) {
+        const fresh = await agentAPI.getAgent(selectedAgent.id);
+        // обновляем локально выбранного агента
+        setSelectedAgent(fresh);
+        if (fresh.status !== 'training') {
+          break;
+        }
+        await new Promise(res => setTimeout(res, 1000));
+      }
+    } catch (e) {
+      console.error('train error', e);
+    } finally {
+      setIsTraining(false);
+    }
   };
 
   /**
@@ -160,9 +276,16 @@ const MainChatInterface: React.FC = () => {
                 ×
               </button>
             </div>
-            <CreateEntityFormSimple />
+            <CreateEntityFormSimple agentId={selectedAgent ? selectedAgent.id : null} />
           </div>
         </div>
+      )}
+
+      {/** NLU editor modal **/}
+      {selectedAgent && (
+        <>
+          {/** show button in left panel (already added) - modal here **/}
+        </>
       )}
       
       {/* Левая панель управления */}
@@ -215,6 +338,18 @@ const MainChatInterface: React.FC = () => {
                             >
                               Выбрать
                             </button>
+                            <button
+                              className="btn btn-secondary btn-small"
+                              onClick={() => handleStopAgent(agent.id)}
+                            >
+                              Stop
+                            </button>
+                            <button
+                              className="btn btn-danger btn-small"
+                              onClick={() => handleDeleteAgent(agent.id)}
+                            >
+                              Удалить
+                            </button>
                           </div>
                         </div>
                       ))}
@@ -230,37 +365,56 @@ const MainChatInterface: React.FC = () => {
               <>
                 <div className="panel-section">
                   <h3>Выбранный агент: {selectedAgent.name}</h3>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => setSelectedAgent(null)}
-                  >
-                    Назад к списку
-                  </button>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => setSelectedAgent(null)}
+                    >
+                      Назад к списку
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleTrainAgent}
+                      disabled={isTraining}
+                    >
+                      {isTraining ? 'Тренировка...' : 'Train'}
+                    </button>
+                    <span style={{ marginLeft: 8 }}>
+                      Статус: {selectedAgent.status}
+                    </span>
+                    <button className="btn btn-secondary" onClick={() => setShowNLUEditor(true)}>NLU</button>
+                    <button className="btn btn-secondary" onClick={() => setShowLogsViewer(true)}>Логи</button>
+                  </div>
                 </div>
                 
                 <div className="panel-section">
                   <h3>Интенты</h3>
                   <div className="intent-list">
-                    <div className="intent-item">
-                      <span>Приветствие</span>
-                      <span className="intent-count">3 примера</span>
-                    </div>
-                    <div className="intent-item">
-                      <span>Прощание</span>
-                      <span className="intent-count">2 примера</span>
-                    </div>
+                    {intents.length > 0 ? (
+                      intents.map(intent => (
+                        <div key={intent.id} className="intent-item">
+                          <span>{intent.name}</span>
+                          <span className="intent-count">{intent.examples.length} примера</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="empty-state">Интентов пока нет</div>
+                    )}
                   </div>
                 </div>
                 
                 <div className="panel-section">
                   <h3>Сущности</h3>
                   <div className="entity-list">
-                    <div className="entity-item">
-                      <span>Имя пользователя</span>
-                    </div>
-                    <div className="entity-item">
-                      <span>Номер телефона</span>
-                    </div>
+                    {entities.length > 0 ? (
+                      entities.map(entity => (
+                        <div key={entity.id} className="entity-item">
+                          <span>{entity.name}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="empty-state">Сущностей пока нет</div>
+                    )}
                   </div>
                 </div>
               </>
@@ -310,6 +464,14 @@ const MainChatInterface: React.FC = () => {
           </div>
         )}
       </div>
+
+      {showNLUEditor && selectedAgent && (
+        <NLUEditor agentId={selectedAgent.id} onClose={() => setShowNLUEditor(false)} />
+      )}
+      
+      {showLogsViewer && selectedAgent && (
+        <DialogLogsViewer agent={selectedAgent} onClose={() => setShowLogsViewer(false)} />
+      )}
       
       {/* Панель диагностики */}
       <div className="diagnostic-panel">

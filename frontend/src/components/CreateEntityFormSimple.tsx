@@ -3,7 +3,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EntityCreate, agentAPI } from '../services/api';
 import './css/CreateEntityForm.css';
 
-const CreateEntityFormSimple: React.FC = () => {
+interface Props { agentId?: number | null }
+
+const CreateEntityFormSimple: React.FC<Props> = ({ agentId = null }) => {
   const queryClient = useQueryClient();
   
   const [name, setName] = useState('');
@@ -13,7 +15,10 @@ const CreateEntityFormSimple: React.FC = () => {
   const [description, setDescription] = useState('');
   
   const mutation = useMutation({
-    mutationFn: (entityData: EntityCreate) => agentAPI.createEntity(0, entityData), // 0 - заглушка
+    mutationFn: (entityData: EntityCreate) => {
+      if (!agentId) return Promise.reject(new Error('No agent selected'));
+      return agentAPI.createEntity(agentId, entityData);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['entities'] });
       // Очистка формы

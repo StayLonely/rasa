@@ -53,6 +53,7 @@ class NLUService:
         if nlu_content and 'nlu' in nlu_content:
             for item in nlu_content['nlu']:
                 if 'intent' in item:
+                    # Загружаем интент
                     intent_name = item['intent']
                     examples = []
 
@@ -71,14 +72,33 @@ class NLUService:
                         name=intent_name,
                         examples=examples
                     ))
+                elif 'entity' in item:
+                    # Загружаем сущность
+                    entity_name = item['entity']
+                    examples = item.get('examples', [])
+                    if isinstance(examples, str):
+                        # Если примеры в виде строки, разбиваем по строкам
+                        examples = [ex.strip().lstrip('-').strip() for ex in examples.split('\n') if ex.strip()]
+                    elif not isinstance(examples, list):
+                        examples = []
+                    
+                    # Фильтруем пустые примеры
+                    examples = [ex for ex in examples if ex]
+                    
+                    if examples:  # Только если есть непустые примеры
+                        entities.append(Entity(
+                            name=entity_name,
+                            examples=examples
+                        ))
 
         return NLUData(intents=intents, entities=entities)
 
     def save_nlu_data(self, nlu_file_path: str, nlu_data: NLUData) -> bool:
         """Сохранение NLU данных в YAML файл"""
         try:
-            nlu_content = {'nlu': []}
+            nlu_content = {'version': '3.1', 'nlu': []}
 
+            # Сохраняем интенты
             for intent in nlu_data.intents:
                 examples_text = []
                 for example in intent.examples:
@@ -94,6 +114,15 @@ class NLUService:
                     'intent': intent.name,
                     'examples': '\n'.join(examples_text)
                 })
+
+            # Сохраняем сущности
+            for entity in nlu_data.entities:
+                if entity.examples:  # Только если есть примеры
+                    entity_data = {
+                        'entity': entity.name,
+                        'examples': entity.examples
+                    }
+                    nlu_content['nlu'].append(entity_data)
 
             # Создаем директорию если не существует
             os.makedirs(os.path.dirname(nlu_file_path), exist_ok=True)

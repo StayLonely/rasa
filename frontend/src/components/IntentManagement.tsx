@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Intent, IntentCreate } from '../services/api';
+import { Intent, IntentCreate, agentAPI } from '../services/api';
 import CreateExampleForm from './CreateExampleForm';
 import './css/IntentManagement.css';
 
@@ -22,28 +22,22 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
     examples: []
   });
   const [newExample, setNewExample] = useState('');
-  const [intents, setIntents] = useState<Intent[]>([
-    {
-      id: 1,
-      name: "greet",
-      description: "Приветствие пользователя",
-      examples: [
-        "Привет",
-        "Здравствуйте",
-        "Добрый день"
-      ]
-    },
-    {
-      id: 2,
-      name: "goodbye",
-      description: "Прощание с пользователем",
-      examples: [
-        "Пока",
-        "До свидания",
-        "Увидимся"
-      ]
+  const [intents, setIntents] = useState<Intent[]>([]);
+  
+  // Загружаем интенты при монтировании компонента
+  useEffect(() => {
+    loadIntents();
+  }, [agentId]);
+  
+  const loadIntents = async () => {
+    try {
+      const loadedIntents = await agentAPI.getIntents(agentId);
+      setIntents(loadedIntents);
+    } catch (error) {
+      console.error('Ошибка загрузки интентов:', error);
+      // Можно показать уведомление об ошибке
     }
-  ]);
+  };
   
   const [showExampleForm, setShowExampleForm] = useState(false);
   const [selectedIntentId, setSelectedIntentId] = useState<number | null>(null);
@@ -69,36 +63,35 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
     }
   }, [editingIntent, isAdding]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.examples || formData.examples.length < 3) return;
     
     const intentData: IntentCreate = {
       name: formData.name,
-      description: formData.description,
+      description: formData.description || '',
       examples: formData.examples
     };
     
-    if (editingIntent) {
-      // Update existing intent
-      setIntents(intents.map(intent =>
-        intent.id === editingIntent.id
-          ? { ...intent, ...intentData }
-          : intent
-      ));
+    try {
+      if (editingIntent) {
+        // Update existing intent
+        await agentAPI.updateIntent(agentId, editingIntent.id, intentData);
+      } else {
+        // Create new intent
+        await agentAPI.createIntent(agentId, intentData);
+      }
+      
+      // Перезагружаем список интентов
+      await loadIntents();
       setEditingIntent(null);
-    } else {
-      // Add new intent
-      const newIntent: Intent = {
-        id: Date.now(),
-        ...intentData
-      };
-      setIntents([...intents, newIntent]);
+      setIsAdding(false);
+      resetForm();
+    } catch (error) {
+      console.error('Ошибка при сохранении интента:', error);
+      alert('Ошибка при сохранении интента');
     }
-    
-    setIsAdding(false);
-    resetForm();
   };
 
   const handleEdit = (intent: Intent) => {
@@ -106,9 +99,16 @@ const IntentManagement: React.FC<IntentManagementProps> = ({ agentId }) => {
     setIsAdding(true);
   };
 
-  const handleDelete = (intentId: number, intentName: string) => {
+  const handleDelete = async (intentId: number, intentName: string) => {
     if (window.confirm(`Вы уверены, что хотите удалить интент "${intentName}"?`)) {
-      setIntents(intents.filter(intent => intent.id !== intentId));
+      try {
+        await agentAPI.deleteIntent(agentId, intentId);
+        // Перезагружаем список интентов
+        await loadIntents();
+      } catch (error) {
+        console.error('Ошибка при удалении интента:', error);
+        alert('Ошибка при удалении интента');
+      }
     }
   };
 

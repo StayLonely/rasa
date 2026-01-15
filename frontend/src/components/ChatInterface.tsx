@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageResponse } from '../services/api';
+import { MessageResponse, agentAPI } from '../services/api';
 import './css/ChatInterface.css';
 
 /**
@@ -22,14 +22,7 @@ interface DiagnosticData {
 }
 
 const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 1,
-      text: "Здравствуйте! Я ваш виртуальный помощник. Чем могу помочь?",
-      sender: 'agent',
-      timestamp: new Date()
-    }
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputText, setInputText] = useState('');
   const [diagnosticData, setDiagnosticData] = useState<DiagnosticData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,59 +49,51 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
     setIsLoading(true);
     setDiagnosticData(null);
 
-    // Имитация задержки для ответа агента
-    setTimeout(() => {
-      // Моковые диагностические данные
-      const mockDiagnosticData: DiagnosticData = {
-        intent: inputText.toLowerCase().includes('привет') ? 'greeting' :
-               inputText.toLowerCase().includes('пока') ? 'goodbye' : 'info_request',
-        confidence: 0.85 + Math.random() * 0.15,
-        entities: inputText.includes('@') ? [
-          { entity: 'email', value: 'test@example.com', confidence: 0.92 }
-        ] : inputText.match(/\d+/) ? [
-          { entity: 'number', value: inputText.match(/\d+/)![0], confidence: 0.88 }
-        ] : undefined,
-        trace: [
-          "Получено сообщение пользователя",
-          "Определен интент: " + (inputText.toLowerCase().includes('привет') ? 'greeting' : 
-                                 inputText.toLowerCase().includes('пока') ? 'goodbye' : 'info_request'),
-          "Извлечены сущности: " + (inputText.includes('@') ? 'email' : inputText.match(/\d+/) ? 'number' : 'none'),
-          "Сформирован ответ"
-        ]
-      };
-
-      // Моковый ответ агента
-      const mockResponse: MessageResponse = {
-        response: [
-          inputText.toLowerCase().includes('привет') ? "Здравствуйте! Рад вас видеть!" :
-          inputText.toLowerCase().includes('пока') ? "До свидания! Всего хорошего!" :
-          "Спасибо за ваше сообщение. Я постараюсь помочь вам с этим вопросом."
-        ],
-        agent_id: agentId,
-        intent: mockDiagnosticData.intent,
-        entities: mockDiagnosticData.entities
-      };
+    try {
+      // Отправляем сообщение через реальное API
+      const response = await agentAPI.sendMessage(agentId, {
+        message: inputText,
+        sender: 'user'
+      });
 
       // Добавляем ответ агента
       const agentMessage: ChatMessage = {
         id: Date.now() + 1,
-        text: mockResponse.response.join('\n'),
+        text: response.response.join('\n'),
         sender: 'agent',
         timestamp: new Date()
       };
 
       setMessages(prev => [...prev, agentMessage]);
       
-      // Устанавливаем диагностические данные
-      setDiagnosticData({
-        intent: mockResponse.intent,
-        confidence: mockDiagnosticData.confidence,
-        entities: mockResponse.entities,
-        trace: mockDiagnosticData.trace
-      });
+      // Устанавливаем реальные диагностические данные
+      if (response.trace_metadata) {
+        setDiagnosticData({
+          intent: response.trace_metadata.intent?.name,
+          confidence: response.trace_metadata.intent?.confidence,
+          entities: response.trace_metadata.entities.map(entity => ({
+            entity: entity.entity,
+            value: entity.value,
+            confidence: entity.confidence || 0
+          }))
+        });
+      }
       
+    } catch (error) {
+      console.error('Ошибка отправки сообщения:', error);
+      
+      // Добавляем сообщение об ошибке
+      const errorMessage: ChatMessage = {
+        id: Date.now() + 1,
+        text: 'Ошибка при отправке сообщения. Пожалуйста, попробуйте еще раз.',
+        sender: 'agent',
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -130,27 +115,10 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
         {/* Таблица сохраненных сущностей */}
         <div className="entities-table-container">
           <h3>Сохраненные сущности</h3>
-          <table className="entities-table">
-            <thead>
-              <tr>
-                <th>Название</th>
-                <th>Тип</th>
-                <th>Значения</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>email</td>
-                <td>regex</td>
-                <td>{"\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"}</td>
-              </tr>
-              <tr>
-                <td>number</td>
-                <td>regex</td>
-                <td>\d+</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="entities-info">
+            <p>Сущности загружаются из конфигурации агента автоматически.</p>
+            <p>Используйте NLU-редактор для управления сущностями.</p>
+          </div>
         </div>
         
         <hr className="divider" />
@@ -248,7 +216,7 @@ const ChatInterface: React.FC<{ agentId: number }> = ({ agentId }) => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Введите сообщение..."
+            placeholder="Начните чат..."
             disabled={isLoading}
             rows={2}
           />

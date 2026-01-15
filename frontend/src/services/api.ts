@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -8,6 +8,23 @@ export const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Утилита для унифицированной обработки ответов и ошибок
+const handle = async <T>(p: Promise<any>): Promise<T> => {
+  try {
+    const res = await p;
+    return res.data as T;
+  } catch (err: any) {
+    // Логирование для отладки
+    if (err?.response) {
+      console.error('API error', err.response.status, err.response.data);
+      // пробрасываем тело ошибки если есть
+      throw err.response.data || { status: err.response.status, message: err.message };
+    }
+    console.error('API network error', err);
+    throw err;
+  }
+};
 
 export enum AgentType {
   FAQ = "faq",
@@ -44,11 +61,31 @@ export interface MessageRequest {
   sender?: string;
 }
 
+export interface TraceMetadata {
+  intent?: {
+    name: string;
+    confidence: number;
+  };
+  entities: Array<{
+    entity: string;
+    value: string;
+    confidence?: number;
+    start?: number;
+    end?: number;
+  }>;
+  timestamp: string;
+  confidence?: number;
+  text: string;
+}
+
 export interface MessageResponse {
   response: string[];
   agent_id: number;
+  trace_metadata?: TraceMetadata;
   intent?: string;
   entities?: Array<{ entity: string; value: string; confidence: number }>;
+  success?: boolean;
+  error?: string;
 }
 
 // Интерфейсы для сущностей
@@ -106,29 +143,6 @@ export interface DialogStory {
   connections: DialogConnection[];
 }
 
-// Временные моковые данные
-let mockAgents: Agent[] = [
-  {
-    id: 1,
-    name: "FAQ помощник",
-    description: "Отвечает на частые вопросы о доставке",
-    agent_type: AgentType.FAQ,
-    status: AgentStatus.READY,
-    config_path: "/configs/faq",
-    domain_path: "/domains/faq",
-    model_path: "/models/faq"
-  },
-  {
-    id: 2,
-    name: "Форма записи",
-    description: "Собирает данные для записи на услуги",
-    agent_type: AgentType.FORM,
-    status: AgentStatus.TRAINING,
-    config_path: "/configs/form",
-    domain_path: "/domains/form",
-    model_path: "/models/form"
-  }
-];
 
 
 // Функции для работы с API
@@ -154,7 +168,7 @@ export const agentAPI = {
   },
   
   sendMessage: (id: number, message: MessageRequest): Promise<MessageResponse> => {
-    return api.post<MessageResponse>(`/agents/${id}/message`, message).then(res => res.data);
+    return handle<MessageResponse>(api.post(`/agents/${id}/message`, message));
   },
   
   // Функции для работы с сущностями
@@ -176,7 +190,7 @@ export const agentAPI = {
   
   // Функции для работы с интентами
   getIntents: (agentId: number): Promise<Intent[]> => {
-    return api.get<Intent[]>(`/agents/${agentId}/intents`).then(res => res.data);
+    return handle<Intent[]>(api.get(`/agents/${agentId}/intents`));
   },
   
   createIntent: (agentId: number, intentData: IntentCreate): Promise<Intent> => {
@@ -192,40 +206,59 @@ export const agentAPI = {
   },
 };
 
+// Методы для работы с NLU (GET/PUT)
+export const nluAPI = {
+  getNLU: (agentId: number): Promise<any> => {
+    return handle<any>(api.get(`/agents/${agentId}/nlu`));
+  },
+  updateNLU: (agentId: number, nluData: any): Promise<any> => {
+    return handle<any>(api.put(`/agents/${agentId}/nlu`, { nlu_data: nluData }));
+  }
+};
+
+// Методы для логов и трассировки
+export const logsAPI = {
+  getLogs: (agentId: number, params?: Record<string, any>): Promise<any[]> => {
+    return handle<any[]>(api.get(`/agents/${agentId}/logs`, { params }));
+  },
+  getStatistics: (agentId: number): Promise<any> => {
+    return handle<any>(api.get(`/agents/${agentId}/logs/statistics`));
+  },
+  getIntents: (agentId: number): Promise<any> => {
+    return handle<any>(api.get(`/agents/${agentId}/logs/intents`));
+  },
+  getLogById: (agentId: number, logId: number): Promise<any> => {
+    return handle<any>(api.get(`/agents/${agentId}/logs/${logId}`));
+  },
+  clearLogs: (agentId: number): Promise<void> => {
+    return handle<void>(api.delete(`/agents/${agentId}/logs/`));
+  }
+};
+
+// Agent lifecycle
+export const lifecycleAPI = {
+  stopAgent: (agentId: number): Promise<any> => handle<any>(api.post(`/agents/${agentId}/stop`)),
+};
+
 // Функции для работы с диалогами
 export const dialogAPI = {
   // Получение всех историй для агента
   getStories: (agentId: number): Promise<DialogStory[]> => {
-    // Пока используем моковые данные
-    return Promise.resolve([
-      {
-        id: 1,
-        agentId: agentId,
-        name: "Основной сценарий",
+    // Используем логи диалогов в качестве историй (упрощенно)
+    return logsAPI.getLogs(agentId).then(logs => {
+      // Преобразуем каждый лог в простую историю
+      const stories: DialogStory[] = logs.map((log, idx) => ({
+        id: idx + 1,
+        agentId,
+        name: `Log ${log.id}`,
         nodes: [
-          {
-            id: "start",
-            type: "intent",
-            content: "Приветствие",
-            position: { x: 100, y: 100 }
-          },
-          {
-            id: "redirect-1",
-            type: "redirect",
-            content: "Перенаправление в поддержку",
-            position: { x: 300, y: 200 },
-            targetAgentId: 2
-          }
+          { id: `u-${log.id}`, type: 'intent', content: log.user_message, position: { x: 100, y: 100 } },
+          { id: `b-${log.id}`, type: 'response', content: (log.bot_response || []).join('\n'), position: { x: 300, y: 200 } }
         ],
-        connections: [
-          {
-            id: "conn-1",
-            sourceId: "start",
-            targetId: "redirect-1"
-          }
-        ]
-      }
-    ]);
+        connections: [ { id: `c-${log.id}`, sourceId: `u-${log.id}`, targetId: `b-${log.id}` } ]
+      }));
+      return stories;
+    });
   },
 
   // Сохранение истории

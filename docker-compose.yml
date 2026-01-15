@@ -21,17 +21,20 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
     depends_on:
       - backend
     networks:
       - labnet
     environment:
-      - REACT_APP_API_URL=http://backend:8000/api
+      - REACT_APP_API_URL=http://localhost:8000/api
 
   mock-agent-1:
     image: python:3.11-slim
     container_name: mock_agent_1
-    command: ["sh","-c","pip install flask && python /srv/mock_agent.py"]
+    command: ["sh","-c","pip install flask && python /srv/simple_mock.py"]
     volumes:
       - ./deploy/mock_agent:/srv:ro
     ports:
